@@ -5,12 +5,12 @@
     android:id="@+id/c"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LooginFragment">
+    tools:context=".LoginFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/filledTextField"
+        android:id="@+id/correo"
         style="?attr/textInputFilledStyle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/label">
 
@@ -54,6 +54,14 @@
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="555dp" />
+
+    <Button
+        android:id="@+id/registro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registro"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="639dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
