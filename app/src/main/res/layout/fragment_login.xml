@@ -7,25 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".LoginFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/correo"
-        style="?attr/textInputFilledStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/label">
 
-    </com.google.android.material.textfield.TextInputLayout>
-
+<!--Correo-->
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/textInputEditText"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="476dp"
+        android:layout_marginBottom="34dp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputEditText2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filledTextField" />
-
+    <!--icono logo-->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
@@ -40,28 +35,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <!---->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/filledTextField"
         style="?attr/textInputFilledStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/label">
+        android:layout_marginBottom="98dp"
+        android:hint="@string/label"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!--contraseña-->
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputEditText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="555dp" />
-
+        android:layout_marginTop="34dp"
+        android:layout_marginBottom="211dp"
+        app:layout_constraintBottom_toTopOf="@+id/registro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
+    <!--registrar-->
     <Button
         android:id="@+id/registro"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="32dp"
         android:text="Registro"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="639dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

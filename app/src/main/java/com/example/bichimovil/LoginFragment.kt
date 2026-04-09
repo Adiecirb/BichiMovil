@@ -29,8 +29,34 @@ class LoginFragment : Fragment() {
         binding.registro.setOnClickListener{
             findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
         }
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return binding.root
 
+}
+    // Validaciones-->
+private fun setupValidation(){
+    binding.signInButton.isEnable = false
+
+    binding.emailTiet.addTextChangedListener{
+
+    }
+    binding.passwordTiet.addTextChangedListener{
 
     }
 }
+
+private fun validateFields(){
+    val email = binding.emailTiet.text.toString().trim()
+    val password = binding.passwordTiet.text.toString().trim()
+
+    val isEmailValid = isValidEmail(email)
+    val isPasswordValid = password.length >= 8
+
+binding.emailTil.error = if(email.isNotEmpty() || isEmailValid) null else "Correo inválido"
+
+    binding.passwordTil.error = if(password.isNotEmpty() || isPasswordValidalid) null else "Mínimo 8 carácteres"
+
+
+    binding.singnInButton.isEnable
+    = email.isNotEmpty() && password.isNotEmpty() && isEmailValid && isPasswordValid
+}
+
