@@ -2,8 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="mainBackground">#00BCD4</color>
+    <color name="mainBackground">#001180</color>
     <color name="disable">#949292</color>
-
+    <color name="user_input_purple">#4A148C</color>
+    <color name="navy_blue_link">#000080</color>
+    <color name="pure_white">#FFFFFF</color>
 
 </resources>

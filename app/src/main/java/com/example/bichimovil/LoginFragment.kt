@@ -1,62 +1,84 @@
 package com.example.bichimovil
 
 import android.os.Bundle
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import com.example.bichimovil.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding !!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        binding.registro.setOnClickListener{
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupValidation()
+        setupNavigation()
+    }
+
+    private fun setupNavigation() {
+        // Navegación al Main al dar clic en Ingresar
+        binding.btnIngresar.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
         }
-        return binding.root
 
-}
-    // Validaciones-->
-private fun setupValidation(){
-    binding.signInButton.isEnable = false
+        // Navegación a Registro
+        binding.tvRegister.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
 
-    binding.emailTiet.addTextChangedListener{
-
+        // Navegación a Recuperar Contraseña
+        binding.tvForgotPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_recoverPasswordFragment)
+        }
     }
-    binding.passwordTiet.addTextChangedListener{
 
+    private fun setupValidation() {
+        binding.btnIngresar.isEnabled = false
+
+        binding.emailTiet.addTextChangedListener {
+            validateFields()
+        }
+        binding.passwordTiet.addTextChangedListener {
+            validateFields()
+        }
+    }
+
+    private fun validateFields() {
+        val email = binding.emailTiet.text.toString().trim()
+        val password = binding.passwordTiet.text.toString().trim()
+
+        val isEmailValid = isValidEmail(email)
+        val isPasswordValid = password.length >= 8
+
+        // Gestión de errores visuales en los campos
+        binding.emailTiet.error = if (email.isEmpty() || isEmailValid) null else "Correo inválido"
+        binding.passwordTiet.error = if (password.isEmpty() || isPasswordValid) null else "Mínimo 8 caracteres"
+
+        // El botón solo se activa si todo es válido
+        binding.btnIngresar.isEnabled = email.isNotEmpty() && password.isNotEmpty() && isEmailValid && isPasswordValid
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
-
-private fun validateFields(){
-    val email = binding.emailTiet.text.toString().trim()
-    val password = binding.passwordTiet.text.toString().trim()
-
-    val isEmailValid = isValidEmail(email)
-    val isPasswordValid = password.length >= 8
-
-binding.emailTil.error = if(email.isNotEmpty() || isEmailValid) null else "Correo inválido"
-
-    binding.passwordTil.error = if(password.isNotEmpty() || isPasswordValidalid) null else "Mínimo 8 carácteres"
-
-
-    binding.singnInButton.isEnable
-    = email.isNotEmpty() && password.isNotEmpty() && isEmailValid && isPasswordValid
-}
-
