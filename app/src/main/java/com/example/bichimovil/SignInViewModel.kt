@@ -1,4 +1,8 @@
 package com.example.bichimovil
 
-class SignInViewModel {
+import androidx.lifecycle.ViewModel
+
+
+class SignInViewModel:ViewModel() {
+    fun requestLogin(){}
 }
