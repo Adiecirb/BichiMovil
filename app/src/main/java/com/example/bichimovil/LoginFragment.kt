@@ -9,11 +9,14 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import com.example.bichimovil.databinding.FragmentLoginBinding
+import androidx.fragment.app.viewModels
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel by viewModels<SignInViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
