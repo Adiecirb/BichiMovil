@@ -10,6 +10,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import com.example.bichimovil.databinding.FragmentLoginBinding
 import androidx.fragment.app.viewModels
+import com.example.bichimovil.core.FragmentCommunicator
+
 
 class LoginFragment : Fragment() {
 
@@ -17,6 +19,9 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<SignInViewModel>()
+
+    private lateinit var communicator: FragmentCommunicator
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +34,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        communicator = requireActivity() as FragmentCommunicator
         setupValidation()
         setupNavigation()
     }
@@ -47,6 +53,10 @@ class LoginFragment : Fragment() {
         // Navegación a Recuperar Contraseña
         binding.tvForgotPassword.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_recoverPasswordFragment)
+        }
+
+        binding.btnIngresar.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 

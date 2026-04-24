@@ -54,9 +54,10 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.lottie)
-    implementation("com.google.firebase:firebase-bom:34.12.0")
-    implementation("libs.firebase.firestore")
-    implementation("libs.firebase.auth")
-
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth)
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
 
 }

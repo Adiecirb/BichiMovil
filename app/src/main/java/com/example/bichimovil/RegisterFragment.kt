@@ -7,13 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.bichimovil.databinding.FragmentRegisterBinding
+import androidx.fragment.app.viewModels
 
 class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    private val viewModel by viewModels<SignInViewModel>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+        ): View {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+
+        binding.signInButton.setOnClickListener {
+            viewModel.requestSignUp(
+                binding.emailTiet.text.toString().trim(),
+                binding.passwordTiet.text.toString().trim()
+            )
+        }
         return binding.root
     }
 
