@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".LoginFragment">
+    tools:context=".signup.LoginFragment">
 
     <View
         android:id="@+id/background_top"

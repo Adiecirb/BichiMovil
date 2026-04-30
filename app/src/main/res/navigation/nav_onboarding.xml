@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.bichimovil.LoginFragment"
+        android:name="com.example.bichimovil.signup.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -51,7 +51,7 @@
 
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.example.bichimovil.MainActivity"
+        android:name="com.example.bichimovil.signup.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
 

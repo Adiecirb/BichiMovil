@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.bichimovil.databinding.FragmentRegisterBinding
 import androidx.fragment.app.viewModels
+import com.example.bichimovil.signup.SignInViewModel
 
 class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
