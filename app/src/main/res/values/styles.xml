@@ -1,42 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="signUpButton" parent="Widget.Material3.Button">
         <item name="android:textAllCaps">false</item>
         <item name="cornerRadius">12dp</item>
-        <item name="backgroundTint">@color/white</item>
-        <item name="android:textColor">@color/mainBackground</item>
+
+        <!-- COLOR FONDO -->
+        <item name="backgroundTint">@color/button_background</item>
+
+        <!-- COLOR TEXTO -->
+        <item name="android:textColor">@color/button_text</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="signInLabel" parent="TextAppearance.Material3.BodyLarge">        <item name="android:textColor">@color/pure_white</item>
+    <style name="signInLabel" parent="TextAppearance.Material3.BodyLarge">
+
+        <!-- Color del texto -->
+        <item name="android:textColor">#FFFFFF</item>
+
+        <!-- Negrita -->
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">20sp</item>
+
+        <!-- Tamaño opcional -->
+        <item name="android:textSize">16sp</item>
         <item name="android:textAlignment">center</item>
+
     </style>
 
+    <style name="passwordTil" parent="Widget.Material3.TextInputLayout.FilledBox">
 
-    <style name="passwordTil" parent="Widget.Material3.TextInputLayout.FilledBox">        <item name="boxBackgroundColor">@color/white</item>
-        <item name="hintTextColor">@color/user_input_purple</item>
-        <item name="android:textColorHint">@color/user_input_purple</item>
-        <item name="boxStrokeColor">@color/user_input_purple</item>
+        <!-- Fondo -->
+        <item name="boxBackgroundColor">#FFFFFF</item>
+
+        <!-- Color del hint -->
+        <item name="hintTextColor">#000000</item>
+
     </style>
 
     <style name="passwordTiet" parent="Widget.Material3.TextInputEditText.FilledBox">
-    <style name="UserInputText" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
-        <item name="android:textColor">@color/user_input_purple</item>
-        <item name="android:textSize">16sp</item>
-    </style>
 
-    <style name="LinkTextRegister">
-        <item name="android:textColor">@color/navy_blue_link</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">14sp</item>
-    </style>
+        <!-- Color del texto -->
+        <item name="android:textColor">#000000</item>
 
-    <style name="LinkTextReset">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">14sp</item>
+        <!-- Color del hint dentro del input -->
+        <item name="android:textColorHint">#000000</item>
+
     </style>
 </resources>

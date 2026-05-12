@@ -13,6 +13,13 @@ import com.example.bichimovil.databinding.FragmentLoginBinding
 import androidx.fragment.app.viewModels
 import com.example.bichimovil.core.FragmentCommunicator
 import com.example.bichimovil.databinding.FragmentRegisterBinding;
+import androidx.lifecycle.Lifecycle
+        import androidx.lifecycle.lifecycleScope
+        import androidx.lifecycle.repeatOnLifecycle
+                import com.example.bichimovil.SignUpViewModel
+                        import com.example.bichimovil.core.ResponseService
+                                import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 
 class RegisterFragment : Fragment() {
@@ -21,6 +28,7 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding !!
 
     private val viewModel by viewModels<RegisterViewModel > ()
+
     private lateinit var communicator: FragmentCommunicator
 
 
@@ -28,6 +36,7 @@ class RegisterFragment : Fragment() {
             inflater:LayoutInflater, container:ViewGroup ?,
             savedInstanceState:Bundle ?
     ):View ? {
+        //Inflate the layout for this fragment
             _binding = FragmentRegisterBinding.inflate(inflater, container, false)
             communicator = requireActivity() as FragmentCommunicator
             setupValidation()
@@ -58,7 +67,7 @@ private fun validateEnable(){
 
 
 private fun setupClickListeners(){
-    binding.signInButton.setOnClickListener{
+    binding.btnIngresar.setOnClickListener{
         val email = binding.emailEditText.text.toString().tirm()
                 val password = binding.passwordEditText.text.toString().trim()
                         viewModel.requestLogin(email, password)
@@ -78,17 +87,17 @@ private fun observeState(){
                         binding.progressBar.visibility = View.VISIBLE
                     }
                     is ResponseService.Success -> {
-                        comminuicator.manageLoader(true)
+                        commuinicator.manageLoader(true)
                         binding.btnIngresar.isEnabled = false
 
                     }
                     is ResponseService.Succes -> {
-                        commincator.manageLoader(false)
+                        commiunicator.manageLoader(false)
                         //Todo: Navegar a panatalla datos personales
 
                     }
                     is ResponseService.Error -> {
-                        comminuicator.manageLoader(false)
+                        commuinicator.manageLoader(false)
                         binding.btnIngresar.isEnabled = true
                         Snackbar.nake(binding.root, state.message, Snackbar.LENGTH_LONG).show()
 
