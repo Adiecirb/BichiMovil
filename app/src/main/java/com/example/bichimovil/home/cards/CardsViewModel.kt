@@ -3,7 +3,6 @@ package com.example.bichimovil.home.cards
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bichimovil.core.ResponseService
-import com.example.bichimovil.home.cards.model.Card
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -3,7 +3,6 @@ package com.example.bichimovil.home.transactions
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bichimovil.core.ResponseService
-import com.example.bichimovil.home.transactions.model.Transaction
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

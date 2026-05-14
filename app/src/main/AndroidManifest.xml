@@ -18,6 +18,9 @@
             android:name=".signup.MainActivity"
             android:exported="false" />
         <activity
+            android:name=".home.HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".onboarding.MainActivity"
             android:exported="true">
             <intent-filter>

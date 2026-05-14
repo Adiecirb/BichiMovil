@@ -1,4 +1,4 @@
-package com.example.bichimovil.home.transactions.model
+package com.example.bichimovil.home.transactions
 
 data class Transaction(
     val id: String = "",

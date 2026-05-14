@@ -1,4 +1,4 @@
-package com.example.bichimovil.home.cards.model
+package com.example.bichimovil.home.cards
 
 data class Card(
     val id: String = "",

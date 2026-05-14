@@ -18,6 +18,8 @@ import com.example.bichimovil.core.ResponseService
 import com.example.bichimovil.databinding.FragmentLoginBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import android.content.Intent
+import com.example.bichimovil.home.HomeActivity
 
 class LoginFragment : Fragment() {
 
@@ -83,6 +85,10 @@ class LoginFragment : Fragment() {
                         }
                         is ResponseService.Success -> {
                             communicator.manageLoader(false)
+
+                            val intent = Intent(requireActivity(), HomeActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)}
                             // TODO: navegar a MainActivity
                         }
                         is ResponseService.Error -> {
