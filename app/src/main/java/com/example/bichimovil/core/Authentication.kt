@@ -1,12 +1,8 @@
 package com.example.bichimovil.core
 
-internal interface Authentication {
-    fun requestLogin()
-    fun requestSignUp()
+import com.google.firebase.auth.FirebaseUser
 
-    companion object {
-        val `fun`: suspend ? = null
-        val `fun`: suspend ? = null
-    }
+interface Authentication {
+    suspend fun requestLogin(email: String, password: String): ResponseService<FirebaseUser>
+    suspend fun requestSignUp(email: String, password: String): ResponseService<FirebaseUser>
 }
-

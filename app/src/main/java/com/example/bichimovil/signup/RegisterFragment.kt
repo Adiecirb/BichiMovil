@@ -1,140 +1,99 @@
 package com.example.bichimovil.signup
 
-
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import com.example.bichimovil.core.FragmentCommunicator
+import com.example.bichimovil.core.ResponseService
+import com.example.bichimovil.databinding.FragmentRegisterBinding
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
-internal class {
-    internal inner class RegisterFragment
+class RegisterFragment : Fragment() {
 
-    fun Fragment() {
-        val _binding: Unit /* TODO: class org.jetbrains.kotlin.nj2k.types.JKJavaNullPrimitiveType */?
-        if (FragmentLoginBinding) = null
-        val binding: `val`
-        get() = _binding
-        !!
+    private var _binding: FragmentRegisterBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel by viewModels<RegisterViewModel>()
+    private lateinit var communicator: FragmentCommunicator
 
-        val viewModel: `val`?
-        val viewModels: by?
-        RegisterViewModel > ()
-
-        val `var`: lateinit?
-        communicator@ FragmentCommunicator
-
-
-        val `fun`: override?
-        onCreateView(
-            inflater
-        )
-        TODO(
-            """
-            |Cannot convert element
-            |With text:
-            |LayoutInflater, container
-            """.trimMargin()
-        )
-        TODO(
-            """
-            |Cannot convert element
-            |With text:
-            |ViewGroup ?,
-            |            savedInstanceState
-            """.trimMargin()
-        )
-        if (Bundle)
-            if (View) kotlin.arrayOf<>( //Inflate the layout for this fragment
-                com.example.bichimovil.databinding.FragmentRegisterBinding.inflate(
-                    inflater,
-                    container,
-                    false
-                ).also {
-                    _binding = it
-                },
-                requireActivity().also { communicator = it }, `as`, FragmentCommunicator,
-                setupValidation(),
-                setupClickListeners(),
-                observeState()
-            )
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        communicator = requireActivity() as FragmentCommunicator
+        setupValidation()
+        setupClickListeners()
+        observeState()
         return binding.root
     }
 
-    private fun setupValidation(): `fun`? {
-        binding.btnIngresar.isEnabled = false
-        val watcher: `val` = kotlin.arrayOf<>(validateEnable())
-        binding.emailTiet.addTextChangedListener
-        run { validateEnable() }
-        binding.passwordTiet.addTextChangedListener
-        run { validateEnable() }
-        binding.confirmPasswordTiet.addTextChangedListener
-        run { validateEnable() }
+    private fun setupValidation() {
+        binding.signInButton.isEnabled = false
+        binding.emailTiet.addTextChangedListener { validateAndEnable() }
+        binding.passwordTiet.addTextChangedListener { validateAndEnable() }
+        binding.confirmPasswordTiet.addTextChangedListener { validateAndEnable() }
     }
 
-    private fun validateEnable(): `fun`? {
-        val email: `val`? = binding.emailTiet.text.toString().trim()
-        val password: `val`? = binding.passwordTiet.text.toString().trim()
-        val confirmPassword: `val`? = binding.confirmPasswordTiet.text.toString().trim()
+    private fun validateAndEnable() {
+        val email = binding.emailTiet.text.toString().trim()
+        val pass = binding.passwordTiet.text.toString().trim()
+        val confirm = binding.confirmPasswordTiet.text.toString().trim()
 
         binding.emailTil.error = viewModel.validateEmail(email)
         binding.passwordTil.error = viewModel.validatePassword(pass)
         binding.confirmPasswordTil.error = viewModel.validateConfirmPassword(pass, confirm)
-        binding.btnIngresar.isEnabled = viewModel.isRegisterFormValid(email, pass, confirm)
+        binding.signInButton.isEnabled = viewModel.isRegisterFormValid(email, pass, confirm)
     }
 
-
-    private fun setupClickListeners(): `fun`? {
-        binding.btnIngresar.setOnClickListener
-        run {
-            val email: `val`? = binding.emailEditText.text.toString().tirm()
-            val password: `val`? = binding.passwordEditText.text.toString().trim()
-            viewModel.requestLogin(email, password)
+    private fun setupClickListeners() {
+        binding.signInButton.setOnClickListener {
+            val email = binding.emailTiet.text.toString().trim()
+            val password = binding.passwordTiet.text.toString().trim()
+            viewModel.requestSignUp(email, password)
         }
-        binding.registerText.setOnClickListener
-        run {
+        binding.registerText.setOnClickListener {
             findNavController().navigateUp()
         }
     }
 
-    private fun observeState(): `fun`? {
-        viewLifecycleOwner.lifecycleScope.launch
-        run {
-            repeatOnLifecycle(androidx.lifecycle.Lifecycle.State.STARTED)
-            run {
-                viewModel.registerState.collect
-                run {
-                    { state -> `when`(state) }
-                    run {
-                        val ResponseService: `is`?
-                        { Loading ->
-                            binding.progressBar.visibility = android.view.View.VISIBLE
+    private fun observeState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.registerState.collect { state ->
+                    when (state) {
+                        is ResponseService.Loading -> {
+                            communicator.manageLoader(true)
+                            binding.signInButton.isEnabled = false
                         }
-                        val ResponseService: `is`?
-                        { Success ->
-                            commuinicator.manageLoader(true)
-                            binding.btnIngresar.isEnabled = false
+                        is ResponseService.Success -> {
+                            communicator.manageLoader(false)
+                            findNavController().navigate(
+                                com.example.bichimovil.R.id.action_registerFragment_to_personalInfoFragment
+                            )
                         }
-                        val ResponseService: `is`?
-                        { Succes ->
-                            commiunicator.manageLoader(false)
+                        is ResponseService.Error -> {
+                            communicator.manageLoader(false)
+                            binding.signInButton.isEnabled = true
+                            Snackbar.make(binding.root, state.error, Snackbar.LENGTH_LONG).show()
                         }
-                        val ResponseService: `is`?
-                        { Error ->
-                            commuinicator.manageLoader(false)
-                            binding.btnIngresar.isEnabled = true
-                            Snackbar.nake(binding.root, state.message, Snackbar.LENGTH_LONG).show()
-                        }
-                        null
-                        Unit
+                        null -> Unit
                     }
                 }
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
-
-
-
-
-
-
-
-
-

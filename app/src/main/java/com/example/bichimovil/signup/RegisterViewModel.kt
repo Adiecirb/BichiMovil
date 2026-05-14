@@ -8,6 +8,7 @@ import com.example.bichimovil.core.ResponseService
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
@@ -29,6 +30,18 @@ class RegisterViewModel(
         if (!password.any { it.isDigit() }) return "Debe contener al menos un número"
         if (!password.any { it.isUpperCase() }) return "Debe contener mayúscula"
         return null
+    }
+
+    fun validateConfirmPassword(password: String, confirm: String): String? {
+        if (confirm.isBlank()) return "La confirmación es requerida"
+        if (password != confirm) return "Las contraseñas no coinciden"
+        return null
+    }
+
+    fun isRegisterFormValid(email: String, pass: String, confirm: String): Boolean {
+        return validateEmail(email) == null &&
+                validatePassword(pass) == null &&
+                validateConfirmPassword(pass, confirm) == null
     }
 
     fun requestSignUp(email: String, password: String) {

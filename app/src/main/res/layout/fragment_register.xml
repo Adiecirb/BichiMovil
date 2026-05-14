@@ -13,7 +13,7 @@
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginTop="32dp"
-        android:src="@drawable/sound_icon"
+        android:src="@drawable/_346186"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

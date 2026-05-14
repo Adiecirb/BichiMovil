@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.bichimovil.R
 import com.example.bichimovil.core.FragmentCommunicator
 import com.example.bichimovil.databinding.ActivityHomeBinding
 

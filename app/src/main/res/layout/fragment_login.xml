@@ -28,8 +28,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="Correo: "
-        android:ems="10"
-        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
@@ -40,8 +38,8 @@
             android:id="@+id/emailTiet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:ems="10"
+            android:inputType="textEmailAddress"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,19 +52,17 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="Contraseña"
-        android:ems="10"
-        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailTil">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/passwordTiet"
-        android:id="@+id/passwordTiet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/passwordTiet"
+            android:id="@+id/passwordTiet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 

@@ -14,21 +14,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BichiMovil"
         tools:targetApi="31">
+
         <activity
             android:name=".signup.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".home.HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".onboarding.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".home.HomeActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

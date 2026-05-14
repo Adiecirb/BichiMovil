@@ -48,7 +48,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupValidation() {
-        binding.btnIngresar.isEnabled = false
+        binding.signInButton.isEnabled = false
         binding.emailTiet.addTextChangedListener { validateAndEnable() }
         binding.passwordTiet.addTextChangedListener { validateAndEnable() }
     }
@@ -59,16 +59,16 @@ class LoginFragment : Fragment() {
 
         binding.emailTiet.error = viewModel.validateEmail(email)
         binding.passwordTil.error = viewModel.validatePassword(password)
-        binding.btnIngresar.isEnabled = viewModel.isLoginFormValid(email, password)
+        binding.signInButton.isEnabled = viewModel.isLoginFormValid(email, password)
     }
 
     private fun setupClickListeners() {
-        binding.btnIngresar.setOnClickListener {
+        binding.signInButton.setOnClickListener {
             val email = binding.emailTiet.text.toString().trim()
             val password = binding.passwordTiet.text.toString().trim()
             viewModel.requestLogin(email, password)
         }
-        binding.tvRegister.setOnClickListener {
+        binding.registerText.setOnClickListener {
             findNavController()
                 .navigate(R.id.action_loginFragment_to_registerFragment)
         }
@@ -81,7 +81,7 @@ class LoginFragment : Fragment() {
                     when (state) {
                         is ResponseService.Loading -> {
                             communicator.manageLoader(true)
-                            binding.btnIngresar.isEnabled = false
+                            binding.signInButton.isEnabled = false
                         }
                         is ResponseService.Success -> {
                             communicator.manageLoader(false)
@@ -90,10 +90,10 @@ class LoginFragment : Fragment() {
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)}
                             // TODO: navegar a MainActivity
-                        }
+
                         is ResponseService.Error -> {
                             communicator.manageLoader(false)
-                            binding.btnIngresar.isEnabled = true
+                            binding.signInButton.isEnabled = true
                             Snackbar.make(binding.root, state.error,
                                 Snackbar.LENGTH_LONG).show()
                         }

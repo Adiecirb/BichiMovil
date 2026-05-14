@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.bichimovil.databinding.FragmentPersonalInfoBinding
-
+import android.content.Intent
 class PersonalInfoFragment : Fragment() {
     private var _binding: FragmentPersonalInfoBinding? = null
     private val binding get() = _binding!!
@@ -22,11 +22,12 @@ class PersonalInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnFinish.setOnClickListener {
-            Toast.makeText(requireContext(), "¡Registro completado exitosamente!", Toast.LENGTH_SHORT).show()
-            // Limpia el stack y vuelve al login o entra directo a la app
-            findNavController().navigate(R.id.action_personalInfoFragment_to_mainActivity)
+            Toast.makeText(requireContext(), "¡Registro completado!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(requireActivity(),
+                com.example.bichimovil.home.HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
-
         binding.ivBackPersonal.setOnClickListener {
             findNavController().popBackStack()
         }
