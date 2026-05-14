@@ -1,21 +1,17 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.firebase)
-
 }
 
 android {
     namespace = "com.example.bichimovil"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.bichimovil"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -34,13 +30,13 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-
     }
-
+    kotlinOptions {
+        jvmTarget = "11"
+    }
     buildFeatures {
         viewBinding = true
     }
-
 }
 
 dependencies {
@@ -60,5 +56,4 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
-
 }

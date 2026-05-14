@@ -11,9 +11,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-class AuthRepository(): Authentication {
-    val auth = FirebaseAuth.getInstance()
-    val firestore = FirebaseFirestore.getInstance()
+class AuthRepository private constructor(): Authentication {
+    private val auth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
+    companion object {
+        @Volatile private var instance: AuthRepository? = null
+        fun getInstance() = instance ?: synchronized(this) {
+            instance ?: AuthRepository().also { instance = it }
+        }
+    }
 
     override suspend fun requestLogin(
         email: String,

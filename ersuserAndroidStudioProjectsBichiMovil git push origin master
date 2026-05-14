@@ -1,0 +1,16 @@
+[33mac341c3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Actualizacion
+[33m737a1c8[m Merge pull request #2 from Adiecirb/avance-nuevo
+[33md35125b[m[33m ([m[1;31morigin/avance-nuevo[m[33m)[m Home Activity y Main Activity
+[33m8b200d0[m correccion 2
+[33m2fa7941[m Seagregó lo de la clase pasada, aun falta correcciones
+[33mb3c6a4d[m Firebase y Sign up borrador
+[33m254968d[m Implementacion y librerias de firebase
+[33me7c5c9f[m Se agrego lottie y loader logic
+[33m76322da[m View Model a LoginFragment y SigInViewModel
+[33m4f3084a[m Finalización de Entrega 1: Login, Registro, Recuperar Contrasena, Info y Estilos Material 3
+[33md205026[m Estilos y Validacion
+[33mc421b2e[m LogingFrameNavigation
+[33m868b68e[m LogingFrame
+[33ma391d3d[m LinearLayout
+[33mc450a5c[m Layout Constraint
+[33mff6c529[m Initial commit
