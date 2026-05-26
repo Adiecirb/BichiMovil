@@ -35,6 +35,12 @@ firebase-auth ={group="com.google.firebase", name="firebase-auth"}
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesCore" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutinesCore" }
 
+retroit = { group = "com.squareup.retrofit2" name = "retrofit", version.ref ="retrofit"}
+retroit-gson = { group = "com.squareup.retrofit2" name = "converter-gson", version.ref ="retrofit"}
+retroit = { group = "com.squareup.retrofit2" name = "retrofit", version.ref ="retrofit"}
+okhttp-loggin = { group = "com.squareup.okhttp" name = "retrofit", version.ref ="retrofit"}
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
