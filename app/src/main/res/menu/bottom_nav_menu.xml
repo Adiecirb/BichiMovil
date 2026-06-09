@@ -26,9 +26,4 @@
         android:icon="@android:drawable/ic_menu_search"
         android:title="Más" />
 
-    <item
-        android:id="@+id/accountFragment"
-        android:icon="@android:drawable/ic_menu_myplaces"
-        android:title="Cuenta" />
-
 </menu>

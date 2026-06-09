@@ -14,7 +14,7 @@
         android:layout_height="96dp"
         android:layout_marginTop="32dp"
         android:contentDescription="BichiMovil Logo"
-        android:src="@drawable/_346186"
+        android:src="@drawable/logo_bichimovil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
