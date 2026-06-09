@@ -93,33 +93,42 @@ class SignUpFragment : Fragment() {
                 when (state) {
                     is ResponseService.Success -> {
                         loaderCommunicator.manageLoader(false)
-
                         Snackbar.make(
                             binding.root,
                             "Registro exitoso",
                             Snackbar.LENGTH_SHORT
                         ).show()
 
+                        // Verificar si la cuenta en API se creó
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            viewModel.accountCreationState.collect { accountCreated ->
+                                if (!accountCreated) {
+                                    Snackbar.make(
+                                        binding.root,
+                                        "Advertencia: No se pudo crear cuenta bancaria",
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
+                        }
+
+                        // Ir a Personal Info
                         authCommunicator.goToPersonalInfo(
                             binding.emailTiet.text.toString(),
                             binding.passwordTiet.text.toString()
                         )
                     }
-
                     is ResponseService.Error -> {
                         loaderCommunicator.manageLoader(false)
-
                         Snackbar.make(
                             binding.root,
                             state.message,
                             Snackbar.LENGTH_LONG
                         ).show()
                     }
-
                     is ResponseService.Loading -> {
                         loaderCommunicator.manageLoader(true)
                     }
-
                     null -> Unit
                 }
             }
