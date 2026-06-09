@@ -7,5 +7,6 @@
     <color name="user_input_purple">#4A148C</color>
     <color name="navy_blue_link">#000080</color>
     <color name="pure_white">#FFFFFF</color>
+    <color name="primaryColor">#000080</color>
 
 </resources>

@@ -76,14 +76,14 @@ class RegisterFragment : Fragment() {
                         }
                         is ResponseService.Success -> {
                             communicator.manageLoader(false)
-                            findNavController().navigate(
-                                com.example.bichimovil.R.id.action_registerFragment_to_personalInfoFragment
-                            )
+             //               findNavController().navigate(
+                //                com.example.bichimovil.R.id.action_registerFragment_to_personalInfoFragment
+                    //        )
                         }
                         is ResponseService.Error -> {
                             communicator.manageLoader(false)
                             binding.signInButton.isEnabled = true
-                            Snackbar.make(binding.root, state.error, Snackbar.LENGTH_LONG).show()
+                            Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG).show()
                         }
                         null -> Unit
                     }

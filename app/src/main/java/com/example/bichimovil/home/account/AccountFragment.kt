@@ -52,7 +52,7 @@ class AccountFragment : Fragment() {
                         is ResponseService.Error -> {
                             Snackbar.make(
                                 binding.root,
-                                state.error,
+                                state.message,
                                 Snackbar.LENGTH_LONG
                             ).show()
                         }
