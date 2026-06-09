@@ -3,17 +3,26 @@
 
     <item
         android:id="@+id/transactionsFragment"
-        android:icon="@drawable/home_ic"
         android:title="Inicio" />
 
     <item
         android:id="@+id/cardsFragment"
-        android:icon="@drawable/card_ic"
         android:title="Tarjetas" />
 
     <item
+        android:id="@+id/selectBeneficiaryFragment"
+        android:title="Transferir" />
+
+    <item
+        android:id="@+id/retiroFragment"
+        android:title="Retirar" />
+
+    <item
+        android:id="@+id/investmentsFragment"
+        android:title="Más" />
+
+    <item
         android:id="@+id/accountFragment"
-        android:icon="@drawable/home_ic"
         android:title="Cuenta" />
 
 </menu>

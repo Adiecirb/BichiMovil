@@ -64,5 +64,22 @@
         android:name="com.example.bichimovil.home.retiro.ConfirmRetiroFragment"
         android:label="Retiro Exitoso"
         tools:layout="@layout/fragment_confirm_retiro" />
+    <!-- Agregar dentro de <navigation> -->
+
+    <fragment
+        android:id="@+id/investmentsFragment"
+        android:name="com.example.bichimovil.home.investments.InvestmentsFragment"
+        android:label="Inversiones"
+        tools:layout="@layout/fragment_investments">
+        <action
+            android:id="@+id/action_investments_to_investmentDetails"
+            app:destination="@id/investmentDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/investmentDetailsFragment"
+        android:name="com.example.bichimovil.home.investments.InvestmentDetailsFragment"
+        android:label="Detalles de Inversión"
+        tools:layout="@layout/fragment_investment_details" />
 
 </navigation>
