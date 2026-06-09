@@ -1,27 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.BichiMovil" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
+    <style name="Base.Theme.BichiMovil" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/accentColor</item>
         <item name="colorSecondary">@color/secondaryColor</item>
-        <item name="colorSecondaryVariant">@color/accentColor</item>
         <item name="colorError">@color/error</item>
-
-        <!-- Customize your light theme here. -->
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/primaryColor</item>
         <item name="android:textColor">@color/gray_dark</item>
-
-        <!-- Typography -->
         <item name="android:fontFamily">@font/balgine_regular</item>
-
-        <!-- Components -->
         <item name="buttonStyle">@style/ButtonPrimary</item>
         <item name="textInputStyle">@style/TextInputLayoutStyle</item>
-      <!--  <item name="bottomNavigationViewStyle">@style/BottomNavStyle</item> -->
+        <item name="bottomNavigationStyle">@style/BottomNavStyle</item>
     </style>
-
     <style name="Theme.BichiMovil" parent="Base.Theme.BichiMovil" />
-
 </resources>

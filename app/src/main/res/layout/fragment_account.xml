@@ -1,30 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainBackground"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:background="@color/white"
+    android:fillViewport="true">
 
-    <TextView
-        style="@style/TextHeading1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cuenta" />
-
-    <TextView
-        style="@style/TextBody"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Administra tu perfil y sesión de BichiMovil." />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogout"
-        style="@style/ButtonPrimary"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginTop="32dp"
-        android:text="Cerrar Sesión" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <!-- Header morado -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primaryColor"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="40dp"
+            android:paddingBottom="32dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Mi Cuenta"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:fontFamily="@font/balgine_bold" />
+
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="Nombre Usuario"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="@font/balgine_semibold" />
+
+            <TextView
+                android:id="@+id/tvUserEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="usuario@email.com"
+                android:textColor="#AAAACC"
+                android:textSize="13sp"
+                android:fontFamily="@font/balgine_regular" />
+        </LinearLayout>
+
+        <!-- Card datos del usuario -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:paddingTop="8dp" android:paddingBottom="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Nombre Completo" android:textColor="@color/gray_medium"
+                        android:textSize="11sp" android:fontFamily="@font/balgine_regular" />
+                    <TextView android:id="@+id/tvNombreCompleto" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_marginTop="2dp"
+                        android:text="—" android:textColor="@color/primaryColor"
+                        android:textSize="15sp" android:fontFamily="@font/balgine_semibold" />
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="@color/gray_light" />
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:paddingTop="12dp" android:paddingBottom="12dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Celular" android:textColor="@color/gray_medium"
+                        android:textSize="11sp" android:fontFamily="@font/balgine_regular" />
+                    <TextView android:id="@+id/tvPhone" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_marginTop="2dp"
+                        android:text="—" android:textColor="@color/primaryColor"
+                        android:textSize="15sp" android:fontFamily="@font/balgine_semibold" />
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp"
+                    android:background="@color/gray_light" />
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:paddingTop="12dp" android:paddingBottom="8dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Fecha de Nacimiento" android:textColor="@color/gray_medium"
+                        android:textSize="11sp" android:fontFamily="@font/balgine_regular" />
+                    <TextView android:id="@+id/tvBirthDate" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_marginTop="2dp"
+                        android:text="—" android:textColor="@color/primaryColor"
+                        android:textSize="15sp" android:fontFamily="@font/balgine_semibold" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Botón Cerrar Sesión -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogout"
+            style="@style/ButtonPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:text="CERRAR SESIÓN"
+            android:backgroundTint="@color/error"
+            android:textAllCaps="true" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

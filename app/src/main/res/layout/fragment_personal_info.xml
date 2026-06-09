@@ -2,56 +2,60 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".signup.PersonalInfoFragment">
+    android:background="@color/white">
 
+    <!-- Header morado -->
     <View
-        android:id="@+id/background_top_personal"
+        android:id="@+id/headerBg"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintHeight_percent="0.28"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_back_personal"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:src="@android:drawable/btn_dialog"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:tint="@color/white"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_personal_title"
-        style="@style/TextHeading1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:text="Información Personal"
         android:textColor="@color/white"
+        android:textSize="26sp"
+        android:fontFamily="@font/balgine_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_back_personal" />
 
     <TextView
         android:id="@+id/tv_personal_desc"
-        style="@style/TextBody"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="16dp"
         android:text="Completa tus datos para finalizar el registro"
-        android:textColor="@color/white"
+        android:textColor="#CCCCDD"
+        android:textSize="13sp"
+        android:fontFamily="@font/balgine_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_personal_title" />
@@ -60,7 +64,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/background_top_personal"
+        app:layout_constraintTop_toBottomOf="@id/headerBg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -68,7 +72,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="24dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/firstNameLayout"
@@ -77,7 +84,6 @@
                 android:layout_height="wrap_content"
                 android:hint="Nombre:"
                 app:layout_constraintTop_toTopOf="parent">
-
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
@@ -93,7 +99,6 @@
                 android:layout_marginTop="12dp"
                 android:hint="Apellidos:"
                 app:layout_constraintTop_toBottomOf="@id/firstNameLayout">
-
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
@@ -109,7 +114,6 @@
                 android:layout_marginTop="12dp"
                 android:hint="Nombre de usuario:"
                 app:layout_constraintTop_toBottomOf="@id/lastNameLayout">
-
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
@@ -125,7 +129,6 @@
                 android:layout_marginTop="12dp"
                 android:hint="Teléfono:"
                 app:layout_constraintTop_toBottomOf="@id/usernameLayout">
-
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
@@ -141,7 +144,6 @@
                 android:layout_marginTop="12dp"
                 android:hint="Fecha de nacimiento:"
                 app:layout_constraintTop_toBottomOf="@id/phoneLayout">
-
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
@@ -156,11 +158,9 @@
                 style="@style/ButtonPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="28dp"
                 android:text="Finalizar Registro"
                 android:textAllCaps="false"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/birthDateLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
