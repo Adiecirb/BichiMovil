@@ -3,26 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainBackground"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/white">
+    android:padding="16dp">
 
     <TextView
+        style="@style/TextHeading2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Productos de Inversión"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="24dp"
+        android:text="Productos de Inversión" />
 
-    <!-- Tarjeta Inversión Creciente -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardCreciente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        app:cardElevation="4dp"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,30 +29,28 @@
             android:padding="16dp">
 
             <TextView
+                style="@style/TextTitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Inversión Creciente"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:text="Inversión Creciente" />
 
             <TextView
+                style="@style/TextBodySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Interés compuesto: 2% mensual"
-                android:textSize="12sp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:text="Interés compuesto: 2% mensual" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <!-- Tarjeta Pagaré -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardPagare"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="4dp"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,18 +59,17 @@
             android:padding="16dp">
 
             <TextView
+                style="@style/TextTitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pagaré"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:text="Pagaré" />
 
             <TextView
+                style="@style/TextBodySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Interés simple: 1.5% mensual"
-                android:textSize="12sp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:text="Interés simple: 1.5% mensual" />
 
         </LinearLayout>
 
@@ -82,9 +77,10 @@
 
     <Button
         android:id="@+id/btnBack"
+        style="@style/ButtonSecondary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Volver"
-        android:layout_marginTop="24dp" />
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:text="Volver" />
 
 </LinearLayout>

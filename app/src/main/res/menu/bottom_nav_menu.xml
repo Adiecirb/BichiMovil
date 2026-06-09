@@ -3,26 +3,32 @@
 
     <item
         android:id="@+id/transactionsFragment"
+        android:icon="@android:drawable/ic_menu_view"
         android:title="Inicio" />
 
     <item
         android:id="@+id/cardsFragment"
+        android:icon="@android:drawable/ic_dialog_dialer"
         android:title="Tarjetas" />
 
     <item
         android:id="@+id/selectBeneficiaryFragment"
+        android:icon="@android:drawable/ic_menu_send"
         android:title="Transferir" />
 
     <item
         android:id="@+id/retiroFragment"
+        android:icon="@android:drawable/ic_menu_save"
         android:title="Retirar" />
 
     <item
         android:id="@+id/investmentsFragment"
+        android:icon="@android:drawable/ic_menu_search"
         android:title="Más" />
 
     <item
         android:id="@+id/accountFragment"
+        android:icon="@android:drawable/ic_menu_myplaces"
         android:title="Cuenta" />
 
 </menu>

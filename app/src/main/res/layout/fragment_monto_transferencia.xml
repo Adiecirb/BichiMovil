@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/mainBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,53 +12,74 @@
 
         <Button
             android:id="@+id/btnBack"
+            style="@style/ButtonSecondary"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Volver"/>
+            android:layout_height="48dp"
+            android:text="Volver" />
 
         <TextView
             android:id="@+id/tvBeneficiario"
+            style="@style/TextHeading2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Beneficiario"/>
+            android:layout_marginTop="24dp"
+            android:text="Beneficiario" />
 
         <TextView
             android:id="@+id/tvBanco"
+            style="@style/TextBody"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Banco" />
 
         <TextView
             android:id="@+id/tvCuenta"
+            style="@style/TextBodySmall"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Cuenta" />
 
         <TextView
             android:id="@+id/tvSaldoDisponible"
+            style="@style/TextTitle2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Saldo disponible" />
 
         <EditText
             android:id="@+id/etMonto"
+            style="@style/TextInputEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Monto"/>
+            android:layout_marginTop="16dp"
+            android:hint="Monto"
+            android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/etConcepto"
+            style="@style/TextInputEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Concepto"/>
+            android:layout_marginTop="12dp"
+            android:hint="Concepto"
+            android:inputType="text" />
 
         <TextView
             android:id="@+id/tvError"
+            style="@style/TextBodySmall"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/holo_red_dark" />
 
         <Button
             android:id="@+id/btnTransferir"
+            style="@style/ButtonPrimary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Transferir"/>
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:text="Transferir" />
 
     </LinearLayout>
 

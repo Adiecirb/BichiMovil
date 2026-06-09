@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- BichiMovil Palette -->
+    <color name="primaryColor">#220042</color>
+    <color name="secondaryColor">#2A00FF</color>
+    <color name="accentColor">#3000E0</color>
     <color name="mainBackground">#001180</color>
+    <color name="pure_white">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#FF000000</color>
+
+    <!-- Neutral -->
+    <color name="gray_light">#F5F5F5</color>
+    <color name="gray_medium">#949292</color>
+    <color name="gray_dark">#333333</color>
+
+    <!-- Functional -->
+    <color name="success">#4CAF50</color>
+    <color name="error">#F44336</color>
+    <color name="warning">#FFC107</color>
+    <color name="info">#2196F3</color>
+
+    <!-- Legacy (keep for compatibility) -->
     <color name="disable">#949292</color>
     <color name="user_input_purple">#4A148C</color>
     <color name="navy_blue_link">#000080</color>
-    <color name="pure_white">#FFFFFF</color>
-    <color name="primaryColor">#000080</color>
-
 </resources>

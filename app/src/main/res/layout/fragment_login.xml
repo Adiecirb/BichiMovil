@@ -34,7 +34,7 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
-            style="@style/passwordTiet"
+            style="@style/TextInputEditTextStyle"
             android:id="@+id/emailTiet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailTil">
 
         <com.google.android.material.textfield.TextInputEditText
-            style="@style/passwordTiet"
+            style="@style/TextInputEditTextStyle"
             android:id="@+id/passwordTiet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
