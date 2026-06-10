@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
@@ -22,8 +21,8 @@
         android:title="Retirar" />
 
     <item
-        android:id="@+id/investmentsFragment"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="Más" />
+        android:id="@+id/accountFragment"
+        android:icon="@drawable/account_ic"
+        android:title="Cuenta" />
 
 </menu>

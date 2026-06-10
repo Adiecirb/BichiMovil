@@ -1,50 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:fillViewport="true">
+    android:background="@color/primaryColor">
 
+    <!-- Header -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/headerTransferencia"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/primaryColor"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Header morado -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/primaryColor"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="40dp"
-            android:paddingBottom="16dp">
+            android:layout_weight="1"
+            android:text="Transferencia"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:fontFamily="@font/balgine_bold" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnBack"
-                style="@style/ButtonOutlineWhite"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:text="← Volver"
-                android:textSize="12sp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp" />
+        <TextView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✕ Cerrar"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:clickable="true"
+            android:focusable="true" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="12dp"
-                android:text="Transferencia"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:fontFamily="@font/balgine_bold" />
+    </LinearLayout>
 
-        </LinearLayout>
+    <!-- Área blanca principal SIN esquinas redondeadas -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollTransferencia"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/headerTransferencia"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <!-- Cuerpo -->
         <LinearLayout
@@ -53,7 +69,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Saldo disponible -->
             <TextView
                 android:id="@+id/tvSaldoDisponible"
                 android:layout_width="match_parent"
@@ -69,7 +84,6 @@
                 android:layout_height="1dp"
                 android:background="@color/gray_light" />
 
-            <!-- Hacia / Beneficiario -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -122,7 +136,6 @@
                 android:layout_height="1dp"
                 android:background="@color/gray_light" />
 
-            <!-- Monto -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
@@ -140,7 +153,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Error -->
             <TextView
                 android:id="@+id/tvError"
                 android:layout_width="match_parent"
@@ -157,7 +169,6 @@
                 android:background="@color/gray_light"
                 android:layout_marginTop="8dp" />
 
-            <!-- Concepto -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
@@ -174,7 +185,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Botón Transferir -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnTransferir"
                 style="@style/ButtonPrimary"
@@ -187,6 +197,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

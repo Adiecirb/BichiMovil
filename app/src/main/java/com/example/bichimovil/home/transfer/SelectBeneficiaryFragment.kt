@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bichimovil.R
 import com.example.bichimovil.core.BeneficiariesViewModel
 import com.example.bichimovil.core.ResponseService
 import com.example.bichimovil.databinding.FragmentSelectBeneficiaryBinding
@@ -87,11 +88,9 @@ class SelectBeneficiaryFragment : Fragment() {
 
     private fun setupClickListeners() {
         binding.btnAddBeneficiario.setOnClickListener {
-            Snackbar.make(
-                binding.root,
-                "Agregar beneficiario pendiente",
-                Snackbar.LENGTH_SHORT
-            ).show()
+            findNavController().navigate(
+                R.id.action_selectBeneficiaryFragment_to_addBeneficiaryFragment
+            )
         }
 
         binding.btnBack.setOnClickListener {

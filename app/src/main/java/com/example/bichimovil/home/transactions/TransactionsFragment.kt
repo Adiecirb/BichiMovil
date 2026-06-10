@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import com.example.bichimovil.R
 import com.example.bichimovil.core.ResponseService
 import com.example.bichimovil.databinding.FragmentTransactionsBinding
 import com.google.android.material.snackbar.Snackbar
@@ -27,9 +29,27 @@ class TransactionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTransactionsBinding.inflate(inflater, container, false)
+
+        setupClickListeners()
         observeTransactions()
         loadTransactions()
+
         return binding.root
+    }
+
+    private fun setupClickListeners() {
+        binding.btnMasHome.setOnClickListener {
+            findNavController().navigate(R.id.investmentsFragment)
+        }
+
+        binding.btnTransferirHome.setOnClickListener {
+            findNavController().navigate(R.id.selectBeneficiaryFragment)
+        }
+
+        binding.btnRetirarHome.setOnClickListener {
+            findNavController().navigate(R.id.retiroFragment)
+        }
+
     }
 
     private fun loadTransactions() {
@@ -42,13 +62,12 @@ class TransactionsFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.transactionsState.collect { state ->
                     when (state) {
-                        is ResponseService.Loading -> {
-                            // mostrar loader
-                        }
+                        is ResponseService.Loading -> Unit
+
                         is ResponseService.Success -> {
-                            // state.data es tu List<Transaction>
-                            // aquí conectarás tu RecyclerView después
+                            // Aquí después conectas RecyclerView
                         }
+
                         is ResponseService.Error -> {
                             Snackbar.make(
                                 binding.root,
@@ -56,6 +75,7 @@ class TransactionsFragment : Fragment() {
                                 Snackbar.LENGTH_LONG
                             ).show()
                         }
+
                         null -> Unit
                     }
                 }

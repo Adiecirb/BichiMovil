@@ -13,78 +13,95 @@
         android:layout_height="0dp"
         android:background="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.28"
+        app:layout_constraintHeight_percent="0.18"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_back_personal"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        android:tint="@color/white"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_personal_title"
+    <LinearLayout
+        android:id="@+id/headerContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:text="Información Personal"
-        android:textColor="@color/white"
-        android:textSize="26sp"
-        android:fontFamily="@font/balgine_bold"
+        android:background="@color/primaryColor"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="40dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_back_personal" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_personal_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="16dp"
-        android:text="Completa tus datos para finalizar el registro"
-        android:textColor="#CCCCDD"
-        android:textSize="13sp"
-        android:fontFamily="@font/balgine_regular"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_personal_title" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/balgine_bold"
+                android:text="Información personal"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/ivBackPersonal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:minHeight="48dp"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="✕ Cerrar"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_personal_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/balgine_regular"
+            android:text="Completa tus datos para finalizar el registro"
+            android:textColor="#CCCCDD"
+            android:textSize="13sp" />
+    </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollPersonalInfo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/headerBg"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/headerBg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
-            android:paddingEnd="20dp"
             android:paddingTop="16dp"
+            android:paddingEnd="20dp"
             android:paddingBottom="24dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/firstNameLayout"
                 style="@style/TextInputLayoutStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="Nombre:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etFirstName"
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -94,12 +111,16 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/lastNameLayout"
                 style="@style/TextInputLayoutStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:hint="Apellidos:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/firstNameLayout">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLastName"
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -109,12 +130,16 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/usernameLayout"
                 style="@style/TextInputLayoutStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:hint="Nombre de usuario:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lastNameLayout">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etUsername"
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -124,12 +149,16 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/phoneLayout"
                 style="@style/TextInputLayoutStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:hint="Teléfono:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/usernameLayout">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPhone"
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -139,28 +168,35 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/birthDateLayout"
                 style="@style/TextInputLayoutStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:hint="Fecha de nacimiento:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/phoneLayout">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etBirthDate"
                     style="@style/TextInputEditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
+                    android:cursorVisible="false"
                     android:focusable="false"
-                    android:inputType="date" />
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_finish"
                 style="@style/ButtonPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
                 android:layout_marginTop="28dp"
                 android:text="Finalizar Registro"
                 android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/birthDateLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
