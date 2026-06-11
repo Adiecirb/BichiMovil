@@ -10,9 +10,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.bichimovil.R
 import com.example.bichimovil.core.RetiroViewModel
+import com.example.bichimovil.core.toCurrencyMXN
 import com.example.bichimovil.databinding.FragmentConfirmRetiroBinding
 import kotlinx.coroutines.launch
 
+/**
+ * Pantalla de éxito de retiro (fragment_confirm_retiro).
+ * Muestra el monto solicitado y la clave de retiro generada.
+ */
 class ConfirmRetiroFragment : Fragment() {
 
     private var _binding: FragmentConfirmRetiroBinding? = null
@@ -27,13 +32,13 @@ class ConfirmRetiroFragment : Fragment() {
     ): View {
         _binding = FragmentConfirmRetiroBinding.inflate(inflater, container, false)
 
-        observePinState()
+        observeRetiroState()
         setupClickListeners()
 
         return binding.root
     }
 
-    private fun observePinState() {
+    private fun observeRetiroState() {
         viewLifecycleOwner.lifecycleScope.launch {
             retiroViewModel.retiroPin.collect { pin ->
                 if (pin.isNotEmpty()) {
@@ -42,11 +47,20 @@ class ConfirmRetiroFragment : Fragment() {
                 }
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            retiroViewModel.retiroAmountCents.collect { cents ->
+                if (cents > 0) {
+                    binding.tvMontoRetiro.text =
+                        "Monto a retirar: ${cents.toCurrencyMXN()}"
+                }
+            }
+        }
     }
 
     private fun setupClickListeners() {
         binding.btnConfirmar.setOnClickListener {
-            retiroViewModel.confirmRetiro(0)  // En retiro simulado, monto no se usa aquí
+            retiroViewModel.confirmRetiro()
             findNavController().popBackStack(R.id.transactionsFragment, false)
         }
 
