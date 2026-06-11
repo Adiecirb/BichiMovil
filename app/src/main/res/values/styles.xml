@@ -99,14 +99,31 @@
         <item name="android:textColorHint">@color/gray_medium</item>
     </style>
 
-    <!-- Input FilledBox sin fondo (línea solo abajo, para fondos de color) -->
+    <!-- Input transparente con solo línea inferior para Login/Registro/Recuperar -->
     <style name="TextInputUnderline" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
-        <item name="boxStrokeColor">@color/white</item>
+        <item name="boxBackgroundMode">none</item>
         <item name="boxBackgroundColor">@android:color/transparent</item>
-        <item name="hintTextColor">@color/white</item>
+        <item name="android:background">@drawable/bg_input_underline_white</item>
+        <item name="boxStrokeColor">@color/white</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="hintTextColor">#AAAACC</item>
         <item name="android:textColorHint">#AAAACC</item>
-        <item name="endIconTint">@color/white</item>
         <item name="startIconTint">@color/white</item>
+        <item name="endIconTint">@color/white</item>
+        <item name="errorTextColor">@color/error</item>
+        <item name="errorIconTint">@color/error</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
+
+    <style name="TextInputEditTextUnderline" parent="Widget.MaterialComponents.TextInputEditText.FilledBox">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">#AAAACC</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="TextInputEditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">

@@ -1,7 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.BichiMovil" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Base.Theme.BichiMovil" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/accentColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorError">@color/error</item>
+        <item name="android:windowBackground">@color/primaryColor</item>
+        <item name="android:textColor">@color/gray_dark</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="buttonStyle">@style/ButtonPrimary</item>
+        <item name="textInputStyle">@style/TextInputLayoutStyle</item>
+        <item name="bottomNavigationStyle">@style/BottomNavStyle</item>
     </style>
 </resources>

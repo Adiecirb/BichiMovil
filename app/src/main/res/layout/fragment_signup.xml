@@ -57,6 +57,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailTil"
             style="@style/TextInputUnderline"
+            app:boxBackgroundMode="none"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
@@ -69,6 +70,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSub">
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditTextUnderline"
                 android:id="@+id/emailTiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,6 +83,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordTil"
             style="@style/TextInputUnderline"
+            app:boxBackgroundMode="none"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -95,6 +98,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/emailTil">
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditTextUnderline"
                 android:id="@+id/passwordTiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -107,6 +111,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/confirmPasswordTil"
             style="@style/TextInputUnderline"
+            app:boxBackgroundMode="none"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -121,6 +126,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/passwordTil">
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditTextUnderline"
                 android:id="@+id/confirmPasswordTiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -134,7 +140,7 @@
             android:id="@+id/registerButton"
             style="@style/ButtonPrimary"
             android:layout_width="0dp"
-            android:layout_height="52dp"
+            android:layout_height="70dp"
             android:layout_marginTop="28dp"
             android:text="@string/sign_up"
             android:backgroundTint="#2A00FF"

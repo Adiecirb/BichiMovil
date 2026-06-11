@@ -58,6 +58,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailTil"
             style="@style/TextInputUnderline"
+            app:boxBackgroundMode="none"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -71,6 +72,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvSignInSub">
 
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditTextUnderline"
                 android:id="@+id/emailTiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,6 +85,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordTil"
             style="@style/TextInputUnderline"
+            app:boxBackgroundMode="none"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -98,6 +101,7 @@
             app:layout_constraintTop_toBottomOf="@id/emailTil">
 
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/TextInputEditTextUnderline"
                 android:id="@+id/passwordTiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,7 +127,7 @@
             android:id="@+id/signInButton"
             style="@style/ButtonPrimary"
             android:layout_width="0dp"
-            android:layout_height="52dp"
+            android:layout_height="70dp"
             android:layout_marginTop="32dp"
             android:text="@string/sign_in"
             android:backgroundTint="#2A00FF"
