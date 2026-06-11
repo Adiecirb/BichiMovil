@@ -14,7 +14,13 @@ import com.example.bichimovil.core.TransferViewModel
 import com.example.bichimovil.core.toCurrencyMXN
 import com.example.bichimovil.databinding.FragmentConfirmTransferBinding
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Locale
 
+/**
+ * Pantalla de éxito de transferencia (fragment_confirm_transfer).
+ * Muestra los datos REALES de la transacción que devolvió la API.
+ */
 class ConfirmTransferFragment : Fragment() {
 
     private var _binding: FragmentConfirmTransferBinding? = null
@@ -29,20 +35,28 @@ class ConfirmTransferFragment : Fragment() {
     ): View {
         _binding = FragmentConfirmTransferBinding.inflate(inflater, container, false)
 
-        observeTransferResult()
+        showTransactionData()
         setupClickListeners()
 
         return binding.root
     }
 
-    private fun observeTransferResult() {
+    private fun showTransactionData() {
         viewLifecycleOwner.lifecycleScope.launch {
             transferViewModel.transferState.collect { state ->
                 if (state is ResponseService.Success) {
-                    val transaction = state.data
-                    binding.tvMonto.text = transaction.amount.toCurrencyMXN()
-                    binding.tvDescripcion.text = transaction.description ?: "Sin descripción"
-                    binding.tvEstado.text = "Transferencia Exitosa"
+                    val tx = state.data
+                    val fmt = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale("es", "MX"))
+
+                    binding.tvMonto.text = tx.amount.toCurrencyMXN()
+                    binding.tvCodigo.text = tx.id
+                    binding.tvFecha.text = fmt.format(tx.date.toDate())
+                    binding.tvDescripcion.text =
+                        tx.description?.takeIf { it.isNotBlank() } ?: "Sin descripción"
+                    binding.tvEstado.text = when (tx.status) {
+                        "completed" -> "Completada"
+                        else -> tx.status
+                    }
                 }
             }
         }
@@ -50,7 +64,7 @@ class ConfirmTransferFragment : Fragment() {
 
     private fun setupClickListeners() {
         binding.btnVolver.setOnClickListener {
-            // Volver al Home (limpiar backstack del flujo de transferencia)
+            transferViewModel.clearTransferState()
             findNavController().popBackStack(R.id.transactionsFragment, false)
         }
     }

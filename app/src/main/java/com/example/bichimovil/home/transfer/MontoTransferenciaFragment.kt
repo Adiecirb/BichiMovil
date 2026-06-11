@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.bichimovil.R
 import com.example.bichimovil.core.ResponseService
 import com.example.bichimovil.core.TransferViewModel
 import com.example.bichimovil.core.toCurrencyMXN
+import com.example.bichimovil.core.toMoneyCents
 import com.example.bichimovil.databinding.FragmentMontoTransferenciaBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -31,10 +34,14 @@ class MontoTransferenciaFragment : Fragment() {
     ): View {
         _binding = FragmentMontoTransferenciaBinding.inflate(inflater, container, false)
 
+        // Limpia cualquier resultado de una transferencia anterior
+        transferViewModel.clearTransferState()
+
         loadBeneficiaryInfo()
         loadAccount()
         setupValidation()
         setupClickListeners()
+        observeTransferResult()
 
         return binding.root
     }
@@ -43,7 +50,7 @@ class MontoTransferenciaFragment : Fragment() {
         val beneficiary = transferViewModel.selectedBeneficiary.value
         if (beneficiary != null) {
             binding.tvBeneficiario.text = "${beneficiary.name} ${beneficiary.lastName}"
-            binding.tvBanco.text = "Banco: ${beneficiary.alias}"
+            binding.tvBanco.text = beneficiary.alias
             binding.tvCuenta.text = "*${beneficiary.accountNumber.takeLast(4)}"
         }
     }
@@ -52,20 +59,18 @@ class MontoTransferenciaFragment : Fragment() {
         transferViewModel.loadCurrentBalance()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            transferViewModel.currentAccount.collect { saldo ->
-                binding.tvSaldoDisponible.text = "Saldo disponible: ${saldo.toCurrencyMXN()}"
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                transferViewModel.currentAccount.collect { saldo ->
+                    binding.tvSaldoDisponible.text =
+                        "Saldo disponible: ${saldo.toCurrencyMXN()}"
+                }
             }
         }
     }
 
     private fun setupValidation() {
         binding.etMonto.addTextChangedListener { montoText ->
-            val monto = montoText.toString()
-            val montoCents = if (monto.isNotEmpty()) {
-                (monto.toDoubleOrNull() ?: 0.0 * 100).toLong()
-            } else {
-                0
-            }
+            val montoCents = montoText.toString().toMoneyCents()
 
             val error = transferViewModel.validateAmount(montoCents)
             if (error != null) {
@@ -81,40 +86,35 @@ class MontoTransferenciaFragment : Fragment() {
 
     private fun setupClickListeners() {
         binding.btnTransferir.setOnClickListener {
-            val montoText = binding.etMonto.text.toString()
-            val montoCents = (montoText.toDoubleOrNull() ?: 0.0 * 100).toLong()
+            val montoCents = binding.etMonto.text.toString().toMoneyCents()
             val descripcion = binding.etConcepto.text.toString()
 
             val beneficiaryId = transferViewModel.selectedBeneficiary.value?.id
-            if (beneficiaryId != null) {
+            if (beneficiaryId != null && montoCents > 0) {
+                binding.btnTransferir.isEnabled = false
                 transferViewModel.transferMoney(beneficiaryId, montoCents, descripcion)
-                observeTransferResult()
             }
         }
-
     }
 
     private fun observeTransferResult() {
         viewLifecycleOwner.lifecycleScope.launch {
-            transferViewModel.transferState.collect { state ->
-                when (state) {
-                    is ResponseService.Success -> {
-                        // Ir a pantalla de confirmación
-                        findNavController().navigate(
-                            R.id.action_montoTransferencia_to_confirmTransfer
-                        )
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                transferViewModel.transferState.collect { state ->
+                    when (state) {
+                        is ResponseService.Success -> {
+                            findNavController().navigate(
+                                R.id.action_montoTransferencia_to_confirmTransfer
+                            )
+                        }
+                        is ResponseService.Error -> {
+                            binding.btnTransferir.isEnabled = true
+                            // El mensaje viene de la API (insufficient_funds, same_account...)
+                            Snackbar.make(binding.root, state.message, Snackbar.LENGTH_LONG)
+                                .show()
+                        }
+                        else -> Unit
                     }
-                    is ResponseService.Error -> {
-                        Snackbar.make(
-                            binding.root,
-                            state.message,
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                    }
-                    is ResponseService.Loading -> {
-                        // Mostrar loader si quieres
-                    }
-                    null -> {}
                 }
             }
         }
