@@ -18,8 +18,12 @@ import kotlinx.coroutines.launch
 
 /**
  * Alta de beneficiario contra POST /beneficiaries.
- * El "número de cuenta" debe ser el accountNumber (10 dígitos) que la API
- * le asignó a la cuenta del otro usuario.
+ *
+ * IMPORTANTE: la API identifica las cuentas por el accountNumber de 10
+ * dígitos. Este fragment acepta:
+ *  - El número de cuenta de 10 dígitos (con o sin espacios), o
+ *  - La CLABE de 18 dígitos generada por la app (prefijo 646180), de la
+ *    cual se extrae automáticamente el número de cuenta embebido.
  */
 class AddBeneficiaryFragment : Fragment() {
 
@@ -47,18 +51,23 @@ class AddBeneficiaryFragment : Fragment() {
         observeCreateState()
 
         binding.btnGuardarBeneficiario.setOnClickListener {
-            val cuenta = binding.etClabe.text.toString().trim()
+            val cuentaInput = binding.etClabe.text.toString()
             val banco = binding.etBanco.text.toString().trim()
             val nombreCompleto = binding.etNombreDestino.text.toString().trim()
             val aliasInput = binding.etAlias.text.toString().trim()
 
+            val cuenta = extractAccountNumber(cuentaInput)
+
             when {
-                cuenta.isEmpty() -> showError("Ingresa el número de cuenta del destinatario")
-                nombreCompleto.isEmpty() -> showError("Ingresa el nombre del destinatario")
+                cuenta == null -> showError(
+                    "Cuenta inválida. Usa el número de cuenta de 10 dígitos " +
+                            "que aparece en \"Más datos\" del destinatario."
+                )
+                nombreCompleto.isEmpty() ->
+                    showError("Ingresa el nombre del destinatario")
                 else -> {
                     binding.tvError.visibility = View.GONE
 
-                    // La API pide name y lastName por separado
                     val partes = nombreCompleto.split(" ", limit = 2)
                     val name = partes[0]
                     val lastName = partes.getOrElse(1) { "." }
@@ -78,6 +87,24 @@ class AddBeneficiaryFragment : Fragment() {
                     )
                 }
             }
+        }
+    }
+
+    /**
+     * Normaliza lo capturado al accountNumber de 10 dígitos que entiende la API.
+     * - 10 dígitos → se usa tal cual.
+     * - 18 dígitos con prefijo 646180 (CLABE derivada por esta app) →
+     *   se extrae el número de cuenta embebido (posiciones 7 a 17).
+     * - Cualquier otra cosa → inválido.
+     */
+    private fun extractAccountNumber(input: String): String? {
+        val digits = input.filter { it.isDigit() }
+        return when {
+            digits.length == 10 -> digits
+            digits.length == 18 && digits.startsWith("646180") ->
+                digits.substring(6, 17).trimStart('0')
+                    .takeIf { it.length == 10 }
+            else -> null
         }
     }
 

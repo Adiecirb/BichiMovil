@@ -30,7 +30,8 @@ class AccountDetailsFragment : Fragment() {
 
     private val bankRepository = BankRepository.getInstance()
 
-    private var numeroCuenta = ""
+    private var numeroCuentaRaw = ""   // 10 dígitos, lo que entiende la API
+    private var numeroCuenta = ""      // formateado solo para mostrar
     private var clabe = ""
     private var tarjeta = ""
 
@@ -58,6 +59,7 @@ class AccountDetailsFragment : Fragment() {
                 is ResponseService.Success -> {
                     val account = result.data
 
+                    numeroCuentaRaw = account.accountNumber
                     numeroCuenta = formatGroups(account.accountNumber, 3)
                     clabe = buildClabe(account.accountNumber)
                     tarjeta = buildCardNumber(account.accountNumber)
@@ -95,7 +97,8 @@ class AccountDetailsFragment : Fragment() {
 
     private fun setupClickListeners() {
         binding.btnCopyCuenta.setOnClickListener {
-            copyText("Número de cuenta", numeroCuenta)
+            // Se copia SIN espacios: es el valor que acepta la API
+            copyText("Número de cuenta", numeroCuentaRaw)
         }
 
         binding.btnCopyClabe.setOnClickListener {
@@ -107,12 +110,12 @@ class AccountDetailsFragment : Fragment() {
         }
 
         binding.btnCompartir.setOnClickListener {
-            if (numeroCuenta.isEmpty()) return@setOnClickListener
+            if (numeroCuentaRaw.isEmpty()) return@setOnClickListener
 
             val texto = """
                 BichiMovil - Cuenta Digital
                 
-                Número de cuenta: $numeroCuenta
+                Número de cuenta: $numeroCuentaRaw
                 Cuenta CLABE: $clabe
                 Tarjeta de débito: $tarjeta
             """.trimIndent()

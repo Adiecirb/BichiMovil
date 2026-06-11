@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_onboarding"
+    app:startDestination="@id/signInFragment">
+
+    <!-- Sign In Fragment -->
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.bichimovil.signup.SignInFragment"
+        android:label="Sign In"
+        tools:layout="@layout/fragment_signin" />
+
+    <!-- Sign Up Fragment -->
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.bichimovil.signup.SignUpFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_signup" />
+
+    <!-- Forgot Password Fragment -->
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.example.bichimovil.signup.ForgotPasswordFragment"
+        android:label="Forgot Password"
+        tools:layout="@layout/fragment_forgot_password" />
+
+    <!-- Personal Info Fragment -->
+    <fragment
+        android:id="@+id/personalInfoFragment"
+        android:name="com.example.bichimovil.PersonalInfoFragment"
+        android:label="Personal Info"
+        tools:layout="@layout/fragment_personal_info">
+        <action
+            android:id="@+id/action_personalInfoFragment_to_homeActivity"
+            app:destination="@id/homeActivity" />
+    </fragment>
+
+    <!-- Home Activity (destino final) -->
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.example.bichimovil.home.HomeActivity"
+        android:label="Home" />
+
+</navigation>

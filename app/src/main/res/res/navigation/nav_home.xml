@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/transactionsFragment">
+
+    <!-- INICIO -->
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="com.example.bichimovil.home.transactions.TransactionsFragment"
+        android:label="Inicio"
+        tools:layout="@layout/fragment_transactions" />
+
+    <!-- TARJETAS -->
+    <fragment
+        android:id="@+id/cardsFragment"
+        android:name="com.example.bichimovil.home.cards.CardsFragment"
+        android:label="Tarjetas"
+        tools:layout="@layout/fragment_cards" />
+
+    <!-- CUENTA -->
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.bichimovil.home.account.AccountFragment"
+        android:label="Cuenta"
+        tools:layout="@layout/fragment_account" />
+
+    <!-- TRANSFERIR -->
+    <fragment
+        android:id="@+id/selectBeneficiaryFragment"
+        android:name="com.example.bichimovil.home.transfer.SelectBeneficiaryFragment"
+        android:label="Seleccionar Beneficiario"
+        tools:layout="@layout/fragment_select_beneficiary">
+
+        <action
+            android:id="@+id/action_selectBeneficiary_to_montoTransferencia"
+            app:destination="@id/montoTransferenciaFragment" />
+
+        <action
+            android:id="@+id/action_selectBeneficiaryFragment_to_addBeneficiaryFragment"
+            app:destination="@id/addBeneficiaryFragment" />
+
+    </fragment>
+
+    <!-- AGREGAR BENEFICIARIO -->
+    <fragment
+        android:id="@+id/addBeneficiaryFragment"
+        android:name="com.example.bichimovil.home.transfer.AddBeneficiaryFragment"
+        android:label="Agregar Beneficiario"
+        tools:layout="@layout/fragment_add_beneficiary" />
+
+    <!-- MONTO TRANSFERENCIA -->
+    <fragment
+        android:id="@+id/montoTransferenciaFragment"
+        android:name="com.example.bichimovil.home.transfer.MontoTransferenciaFragment"
+        android:label="Monto de Transferencia"
+        tools:layout="@layout/fragment_monto_transferencia">
+
+        <action
+            android:id="@+id/action_montoTransferencia_to_confirmTransfer"
+            app:destination="@id/confirmTransferFragment" />
+
+    </fragment>
+
+    <!-- CONFIRMAR TRANSFERENCIA -->
+    <fragment
+        android:id="@+id/confirmTransferFragment"
+        android:name="com.example.bichimovil.home.transfer.ConfirmTransferFragment"
+        android:label="Transferencia Exitosa"
+        tools:layout="@layout/fragment_confirm_transfer" />
+
+    <!-- RETIRO -->
+    <fragment
+        android:id="@+id/retiroFragment"
+        android:name="com.example.bichimovil.home.retiro.RetiroFragment"
+        android:label="Retiro"
+        tools:layout="@layout/fragment_retiro">
+
+        <action
+            android:id="@+id/action_retiro_to_confirmRetiro"
+            app:destination="@id/confirmRetiroFragment" />
+
+    </fragment>
+
+    <!-- CONFIRMAR RETIRO -->
+    <fragment
+        android:id="@+id/confirmRetiroFragment"
+        android:name="com.example.bichimovil.home.retiro.ConfirmRetiroFragment"
+        android:label="Retiro Exitoso"
+        tools:layout="@layout/fragment_confirm_retiro" />
+
+    <!-- MÁS -> INVERSIONES -->
+    <fragment
+        android:id="@+id/investmentsFragment"
+        android:name="com.example.bichimovil.home.investments.InvestmentsFragment"
+        android:label="Inversiones"
+        tools:layout="@layout/fragment_investments">
+
+        <action
+            android:id="@+id/action_investments_to_investmentDetails"
+            app:destination="@id/investmentDetailsFragment" />
+
+    </fragment>
+
+    <!-- DETALLE INVERSIÓN -->
+    <fragment
+        android:id="@+id/investmentDetailsFragment"
+        android:name="com.example.bichimovil.home.investments.InvestmentDetailsFragment"
+        android:label="Detalles de Inversión"
+        tools:layout="@layout/fragment_investment_details" />
+    <!-- DETALLE DATOS -->
+    <fragment
+        android:id="@+id/accountDetailsFragment"
+        android:name="com.example.bichimovil.home.account.AccountDetailsFragment"
+        android:label="Más datos"
+        tools:layout="@layout/fragment_account_details" />
+</navigation>

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor">
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/headerInvestmentDetails"
@@ -14,10 +14,11 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp"
-        android:paddingTop="40dp"
+        android:paddingTop="20dp"
         android:paddingEnd="16dp"
         android:paddingBottom="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,24 +26,24 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:fontFamily="@font/balgine_bold" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="✕ Cerrar"
-            android:textColor="@color/white"
-            android:textSize="14sp"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
             android:minHeight="48dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:clickable="true"
-            android:focusable="true" />
+            android:text="✕ Cerrar"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -72,6 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Inversión"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

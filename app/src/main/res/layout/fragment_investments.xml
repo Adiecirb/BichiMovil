@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor">
+    android:background="@color/white">
 
     <!-- Header azul/morado -->
     <LinearLayout
@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/balgine_bold"
+            android:fontFamily="sans-serif-medium"
             android:text="Inversiones"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -87,7 +87,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/balgine_bold"
+                android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:paddingBottom="16dp"
                 android:text="Características"
@@ -124,7 +124,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/balgine_bold"
+                            android:fontFamily="sans-serif-medium"
                             android:text="Inversión Creciente"
                             android:textColor="@color/primaryColor"
                             android:textSize="15sp" />
@@ -133,7 +133,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:fontFamily="@font/balgine_regular"
+                            android:fontFamily="sans-serif"
                             android:text="Interés compuesto: 2% mensual"
                             android:textColor="@color/gray_medium"
                             android:textSize="12sp" />
@@ -178,7 +178,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/balgine_bold"
+                            android:fontFamily="sans-serif-medium"
                             android:text="Pagaré"
                             android:textColor="@color/primaryColor"
                             android:textSize="15sp" />
@@ -187,7 +187,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:fontFamily="@font/balgine_regular"
+                            android:fontFamily="sans-serif"
                             android:text="Interés simple: 1.5% mensual"
                             android:textColor="@color/gray_medium"
                             android:textSize="12sp" />

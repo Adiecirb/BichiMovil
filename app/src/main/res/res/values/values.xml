@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">562794844867</string>
+    <string name="google_api_key" translatable="false">AIzaSyCg5zRr12Rq5nv3v-AuUI2Eu2srxpQqrx0</string>
+    <string name="google_app_id" translatable="false">1:562794844867:android:b03d15fd4f2cb8f33fc876</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCg5zRr12Rq5nv3v-AuUI2Eu2srxpQqrx0</string>
+    <string name="google_storage_bucket" translatable="false">soundplay-93bae.firebasestorage.app</string>
+    <string name="project_id" translatable="false">soundplay-93bae</string>
+</resources>
