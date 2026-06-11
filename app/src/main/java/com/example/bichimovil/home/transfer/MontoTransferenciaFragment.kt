@@ -92,9 +92,6 @@ class MontoTransferenciaFragment : Fragment() {
             }
         }
 
-        binding.btnBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
     }
 
     private fun observeTransferResult() {

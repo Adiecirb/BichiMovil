@@ -78,8 +78,7 @@ class RetiroFragment : Fragment() {
             // Navegar a confirmación
             findNavController().navigate(R.id.action_retiro_to_confirmRetiro)
         }
-
-        binding.btnCerrar.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
         }
     }

@@ -125,7 +125,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
             android:text="CERRAR SESIÓN"
-            android:backgroundTint="@color/error"
+            android:backgroundTint="@color/user_input_purple"
             android:textAllCaps="true" />
 
     </LinearLayout>

@@ -31,19 +31,7 @@
             android:textSize="20sp"
             android:fontFamily="@font/balgine_bold" />
 
-        <TextView
-            android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="✕ Cerrar"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:minHeight="48dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:clickable="true"
-            android:focusable="true" />
+
 
     </LinearLayout>
 

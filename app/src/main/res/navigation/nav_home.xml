@@ -109,5 +109,10 @@
         android:name="com.example.bichimovil.home.investments.InvestmentDetailsFragment"
         android:label="Detalles de Inversión"
         tools:layout="@layout/fragment_investment_details" />
-
+    <!-- DETALLE DATOS -->
+    <fragment
+        android:id="@+id/accountDetailsFragment"
+        android:name="com.example.bichimovil.home.account.AccountDetailsFragment"
+        android:label="Más datos"
+        tools:layout="@layout/fragment_account_details" />
 </navigation>

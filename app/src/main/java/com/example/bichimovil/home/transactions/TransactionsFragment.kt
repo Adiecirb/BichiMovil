@@ -23,6 +23,10 @@ class TransactionsFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: TransactionsViewModel by viewModels()
 
+    private var balanceVisible = true
+    private var currentBalanceText = "$0.00"
+    private val cardDigitsText = "**** 0000"
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +42,15 @@ class TransactionsFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
+        binding.btnMasDatos.setOnClickListener {
+            findNavController().navigate(R.id.accountDetailsFragment)
+        }
+
+        binding.ivToggleBalance.setOnClickListener {
+            balanceVisible = !balanceVisible
+            updateBalanceVisibility()
+        }
+
         binding.btnMasHome.setOnClickListener {
             findNavController().navigate(R.id.investmentsFragment)
         }
@@ -49,7 +62,16 @@ class TransactionsFragment : Fragment() {
         binding.btnRetirarHome.setOnClickListener {
             findNavController().navigate(R.id.retiroFragment)
         }
+    }
 
+    private fun updateBalanceVisibility() {
+        if (balanceVisible) {
+            binding.tvSaldo.text = currentBalanceText
+            binding.tvCardDigits.text = cardDigitsText
+        } else {
+            binding.tvSaldo.text = "$••••"
+            binding.tvCardDigits.text = "**** ****"
+        }
     }
 
     private fun loadTransactions() {
@@ -65,7 +87,8 @@ class TransactionsFragment : Fragment() {
                         is ResponseService.Loading -> Unit
 
                         is ResponseService.Success -> {
-                            // Aquí después conectas RecyclerView
+                            currentBalanceText = binding.tvSaldo.text.toString()
+                            updateBalanceVisibility()
                         }
 
                         is ResponseService.Error -> {
