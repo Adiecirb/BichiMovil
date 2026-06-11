@@ -8,8 +8,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * Simulador de inversiones
- * TODO: En futuro, conectar a API real
+ * Simulador de inversiones.
+ * El saldo disponible se consulta a la API (GET /account) y el monto a
+ * invertir queda estrictamente limitado a ese saldo.
  */
 data class InvestmentSimulation(
     val type: String,  // "creciente" o "pagare"
@@ -26,7 +27,15 @@ data class MonthlyData(
     val value: Long
 )
 
-class InvestmentViewModel : ViewModel() {
+/** Resultado de procesar la solicitud de inversión. */
+sealed class InvestResult {
+    data class Exitosa(val amountCents: Long) : InvestResult()
+    data class NoExitosa(val reason: String) : InvestResult()
+}
+
+class InvestmentViewModel(
+    private val bankRepository: BankRepository = BankRepository.getInstance()
+) : ViewModel() {
 
     private val _selectedInvestment = MutableStateFlow<String?>(null)
     val selectedInvestment: StateFlow<String?> = _selectedInvestment.asStateFlow()
@@ -34,13 +43,59 @@ class InvestmentViewModel : ViewModel() {
     private val _simulationResult = MutableStateFlow<InvestmentSimulation?>(null)
     val simulationResult: StateFlow<InvestmentSimulation?> = _simulationResult.asStateFlow()
 
+    private val _currentBalanceCents = MutableStateFlow<Long>(0)  // Saldo real (API)
+    val currentBalanceCents: StateFlow<Long> = _currentBalanceCents.asStateFlow()
+
+    private val _investResult = MutableStateFlow<InvestResult?>(null)
+    val investResult: StateFlow<InvestResult?> = _investResult.asStateFlow()
+
     fun selectInvestment(type: String) {
         _selectedInvestment.value = type
     }
 
+    /** Saldo real desde GET /account. */
+    fun loadCurrentBalance() {
+        viewModelScope.launch {
+            when (val result = bankRepository.getAccount()) {
+                is ResponseService.Success -> _currentBalanceCents.value = result.data.balance
+                else -> Unit
+            }
+        }
+    }
+
+    /**
+     * Procesa la solicitud de inversión validando contra el saldo REAL de la
+     * cuenta (recién consultado a la API para evitar datos viejos).
+     */
+    fun invest(amountCents: Long) {
+        viewModelScope.launch {
+            when (val account = bankRepository.getAccount()) {
+                is ResponseService.Success -> {
+                    val saldo = account.data.balance
+                    _currentBalanceCents.value = saldo
+                    _investResult.value = when {
+                        amountCents <= 0 ->
+                            InvestResult.NoExitosa("El monto debe ser mayor a 0")
+                        amountCents > saldo ->
+                            InvestResult.NoExitosa(
+                                "Saldo insuficiente. Disponible: ${saldo.toCurrencyMXN()}"
+                            )
+                        else -> InvestResult.Exitosa(amountCents)
+                    }
+                }
+                is ResponseService.Error ->
+                    _investResult.value = InvestResult.NoExitosa(account.message)
+                else -> Unit
+            }
+        }
+    }
+
+    fun clearInvestResult() {
+        _investResult.value = null
+    }
+
     fun runSimulation(type: String, amount: Long, months: Int) {
         viewModelScope.launch {
-            // Simulación ficticia según tipo
             val result = when (type) {
                 "creciente" -> simulateCreciente(amount, months)
                 "pagare" -> simulatePagare(amount, months)
@@ -51,7 +106,6 @@ class InvestmentViewModel : ViewModel() {
     }
 
     private fun simulateCreciente(initialAmount: Long, months: Int): InvestmentSimulation {
-        // Tasa de interés simulada: 2% mensual (compuesto)
         val monthlyRate = 0.02
         val monthlyData = mutableListOf<MonthlyData>()
 
@@ -77,7 +131,6 @@ class InvestmentViewModel : ViewModel() {
     }
 
     private fun simulatePagare(initialAmount: Long, months: Int): InvestmentSimulation {
-        // Pagaré: 1.5% mensual simple
         val monthlyRate = 0.015
         val monthlyData = mutableListOf<MonthlyData>()
 

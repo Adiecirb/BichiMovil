@@ -59,6 +59,10 @@ class BeneficiariesViewModel(
         _createBeneficiaryState.value = null
     }
 
+    fun clearDeleteState() {
+        _deleteBeneficiaryState.value = null
+    }
+
     fun deleteBeneficiary(id: String) {
         viewModelScope.launch {
             _deleteBeneficiaryState.value = ResponseService.Loading

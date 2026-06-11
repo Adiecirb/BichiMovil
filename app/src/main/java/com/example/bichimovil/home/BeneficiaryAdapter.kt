@@ -9,7 +9,8 @@ import com.example.bichimovil.core.network.data.BeneficiaryResponse
 import com.example.bichimovil.databinding.ItemBeneficiaryBinding
 
 class BeneficiaryAdapter(
-    private val onClick: (BeneficiaryResponse) -> Unit = {}
+    private val onClick: (BeneficiaryResponse) -> Unit = {},
+    private val onLongClick: (BeneficiaryResponse) -> Unit = {}
 ) : ListAdapter<BeneficiaryResponse, BeneficiaryAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,7 +19,7 @@ class BeneficiaryAdapter(
             parent,
             false
         )
-        return ViewHolder(binding, onClick)
+        return ViewHolder(binding, onClick, onLongClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -27,7 +28,8 @@ class BeneficiaryAdapter(
 
     class ViewHolder(
         private val binding: ItemBeneficiaryBinding,
-        private val onClick: (BeneficiaryResponse) -> Unit
+        private val onClick: (BeneficiaryResponse) -> Unit,
+        private val onLongClick: (BeneficiaryResponse) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: BeneficiaryResponse) {
             binding.apply {
@@ -39,6 +41,10 @@ class BeneficiaryAdapter(
                 tvNombreCompleto.text = "${item.name} ${item.lastName}"
                 tvCuenta.text = "*${item.accountNumber.takeLast(4)}"
                 root.setOnClickListener { onClick(item) }
+                root.setOnLongClickListener {
+                    onLongClick(item)
+                    true
+                }
             }
         }
     }

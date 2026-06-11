@@ -1,25 +1,37 @@
 package com.example.bichimovil.home.cards
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import com.example.bichimovil.core.BankRepository
 import com.example.bichimovil.core.ResponseService
+import com.example.bichimovil.core.toCurrencyMXN
 import com.example.bichimovil.databinding.FragmentCardsBinding
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
+/**
+ * Módulo Tarjetas.
+ * - El saldo y los dígitos de la tarjeta vienen de GET /account (API real).
+ * - "Solicitar tarjeta" (MVP) redirige a un enlace externo de solicitud.
+ */
 class CardsFragment : Fragment() {
 
     private var _binding: FragmentCardsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CardsViewModel by viewModels()
+
+    private val bankRepository = BankRepository.getInstance()
+
+    companion object {
+        // MVP: enlace externo de solicitud de tarjeta.
+        // Sustituye por tu Google Form / landing real cuando lo tengas.
+        private const val CARD_REQUEST_URL = "https://forms.google.com"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,37 +39,45 @@ class CardsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCardsBinding.inflate(inflater, container, false)
-        observeCards()
-        loadCards()
+
+        setupClickListeners()
+
         return binding.root
     }
 
-    private fun loadCards() {
-        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        viewModel.loadCards(uid)
+    override fun onResume() {
+        super.onResume()
+        loadAccount()
     }
 
-    private fun observeCards() {
+    private fun loadAccount() {
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.cardsState.collect { state ->
-                    when (state) {
-                        is ResponseService.Loading -> {
-                            // mostrar loader
-                        }
-                        is ResponseService.Success -> {
-                            // state.data es tu List<Card>
-                        }
-                        is ResponseService.Error -> {
-                            Snackbar.make(
-                                binding.root,
-                                state.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
-                        null -> Unit
-                    }
+            when (val result = bankRepository.getAccount()) {
+                is ResponseService.Success -> {
+                    binding.tvErrorTarjetas.visibility = View.GONE
+                    binding.tvSaldoCard.text = result.data.balance.toCurrencyMXN()
+                    binding.tvCardDigits.text =
+                        "**** ${result.data.accountNumber.takeLast(4)}"
                 }
+                is ResponseService.Error -> {
+                    binding.tvErrorTarjetas.visibility = View.VISIBLE
+                    binding.tvErrorTarjetas.text = result.message
+                }
+                else -> Unit
+            }
+        }
+    }
+
+    private fun setupClickListeners() {
+        binding.btnSolicitarTarjeta.setOnClickListener {
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(CARD_REQUEST_URL)))
+            } catch (e: Exception) {
+                Snackbar.make(
+                    binding.root,
+                    "No se pudo abrir el enlace de solicitud",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
     }
