@@ -7,16 +7,22 @@ import com.example.bichimovil.core.network.data.TransactionResponse
 import com.example.bichimovil.core.network.data.requests.BeneficiaryRequest
 import com.example.bichimovil.core.network.data.requests.FundRequest
 import com.example.bichimovil.core.network.data.requests.TransactionRequest
+import com.example.bichimovil.core.network.data.responses.ApiErrorBody
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 /**
- * Repositorio para manejar todas las llamadas a la API de Banca
- * Singleton pattern para reutilizar la misma instancia
+ * Repositorio único para TODAS las llamadas a la API de Banca.
+ * Convierte HttpException en ResponseService.Error con el código corto
+ * de la API (no_account, insufficient_funds, etc.) y el mensaje en español
+ * que devuelve el backend.
  */
 class BankRepository private constructor() {
 
     private val bankAPI = RetrofitClient.bankAPI
+    private val gson = Gson()
 
     companion object {
         @Volatile
@@ -27,110 +33,70 @@ class BankRepository private constructor() {
         }
     }
 
-    // ==================== ACCOUNT ====================
-
-    suspend fun createAccount(): ResponseService<AccountResponse> = withContext(Dispatchers.IO) {
-        try {
-            val response = bankAPI.createAccount()
-            ResponseService.Success(response)
-        } catch (e: Exception) {
-            ResponseService.Error(e.message ?: "Error creando cuenta")
-        }
-    }
-
-    suspend fun getAccount(): ResponseService<AccountResponse> = withContext(Dispatchers.IO) {
-        try {
-            val response = bankAPI.getAccount()
-            ResponseService.Success(response)
-        } catch (e: Exception) {
-            ResponseService.Error(e.message ?: "Error obteniendo cuenta")
-        }
-    }
-
-    suspend fun fundAccount(amountCents: Long): ResponseService<AccountResponse> =
+    /** Envuelve cualquier llamada y mapea errores HTTP al formato de la API. */
+    private suspend fun <T> safeCall(block: suspend () -> T): ResponseService<T> =
         withContext(Dispatchers.IO) {
             try {
-                val response = bankAPI.fundAccount(FundRequest(amountCents))
-                ResponseService.Success(response)
+                ResponseService.Success(block())
+            } catch (e: HttpException) {
+                val raw = e.response()?.errorBody()?.string()
+                val body = try {
+                    gson.fromJson(raw, ApiErrorBody::class.java)
+                } catch (_: Exception) {
+                    null
+                }
+                ResponseService.Error(
+                    message = body?.message ?: "Error del servidor (${e.code()})",
+                    code = body?.error
+                )
             } catch (e: Exception) {
-                ResponseService.Error(e.message ?: "Error fondeando cuenta")
+                ResponseService.Error("Sin conexión. Revisa tu internet.", "network")
             }
         }
+
+    // ==================== ACCOUNT ====================
+
+    suspend fun createAccount() = safeCall { bankAPI.createAccount() }
+
+    suspend fun getAccount() = safeCall { bankAPI.getAccount() }
+
+    /**
+     * GET /account y, si el usuario aún no tiene cuenta (no_account),
+     * la crea automáticamente con POST /account.
+     */
+    suspend fun getOrCreateAccount(): ResponseService<AccountResponse> {
+        val result = getAccount()
+        return if (result is ResponseService.Error && result.code == "no_account") {
+            createAccount()
+        } else {
+            result
+        }
+    }
+
+    suspend fun fundAccount(amountCents: Long) =
+        safeCall { bankAPI.fundAccount(FundRequest(amountCents)) }
 
     // ==================== BENEFICIARIES ====================
 
-    suspend fun createBeneficiary(request: BeneficiaryRequest): ResponseService<BeneficiaryResponse> =
-        withContext(Dispatchers.IO) {
-            try {
-                val response = bankAPI.createBeneficiary(request)
-                ResponseService.Success(response)
-            } catch (e: Exception) {
-                ResponseService.Error(e.message ?: "Error creando beneficiario")
-            }
-        }
+    suspend fun createBeneficiary(request: BeneficiaryRequest) =
+        safeCall { bankAPI.createBeneficiary(request) }
 
     suspend fun listBeneficiaries(): ResponseService<List<BeneficiaryResponse>> =
-        withContext(Dispatchers.IO) {
-            try {
-                val response = bankAPI.listBeneficiaries()
-                ResponseService.Success(response)
-            } catch (e: Exception) {
-                ResponseService.Error(e.message ?: "Error cargando beneficiarios")
-            }
-        }
+        safeCall { bankAPI.listBeneficiaries() }
 
-    suspend fun getBeneficiary(id: String): ResponseService<BeneficiaryResponse> =
-        withContext(Dispatchers.IO) {
-            try {
-                val response = bankAPI.getBeneficiary(id)
-                ResponseService.Success(response)
-            } catch (e: Exception) {
-                ResponseService.Error(e.message ?: "Error obteniendo beneficiario")
-            }
-        }
+    suspend fun getBeneficiary(id: String) = safeCall { bankAPI.getBeneficiary(id) }
 
-    suspend fun updateBeneficiary(
-        id: String,
-        request: BeneficiaryRequest
-    ): ResponseService<BeneficiaryResponse> = withContext(Dispatchers.IO) {
-        try {
-            val response = bankAPI.updateBeneficiary(id, request)
-            ResponseService.Success(response)
-        } catch (e: Exception) {
-            ResponseService.Error(e.message ?: "Error actualizando beneficiario")
-        }
-    }
+    suspend fun updateBeneficiary(id: String, request: BeneficiaryRequest) =
+        safeCall { bankAPI.updateBeneficiary(id, request) }
 
     suspend fun deleteBeneficiary(id: String): ResponseService<Unit> =
-        withContext(Dispatchers.IO) {
-            try {
-                bankAPI.deleteBeneficiary(id)
-                ResponseService.Success(Unit)
-            } catch (e: Exception) {
-                ResponseService.Error(e.message ?: "Error eliminando beneficiario")
-            }
-        }
+        safeCall { bankAPI.deleteBeneficiary(id); Unit }
 
     // ==================== TRANSACTIONS ====================
 
-    suspend fun createTransaction(
-        request: TransactionRequest
-    ): ResponseService<TransactionResponse> = withContext(Dispatchers.IO) {
-        try {
-            val response = bankAPI.createTransaction(request)
-            ResponseService.Success(response)
-        } catch (e: Exception) {
-            ResponseService.Error(e.message ?: "Error en transferencia")
-        }
-    }
+    suspend fun createTransaction(request: TransactionRequest): ResponseService<TransactionResponse> =
+        safeCall { bankAPI.createTransaction(request) }
 
     suspend fun listTransactions(): ResponseService<List<TransactionResponse>> =
-        withContext(Dispatchers.IO) {
-            try {
-                val response = bankAPI.listTransactions()
-                ResponseService.Success(response)
-            } catch (e: Exception) {
-                ResponseService.Error(e.message ?: "Error cargando transacciones")
-            }
-        }
+        safeCall { bankAPI.listTransactions() }
 }

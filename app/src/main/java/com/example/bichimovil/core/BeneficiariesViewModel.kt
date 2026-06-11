@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * ViewModel para manejar CRUD de Beneficiarios
+ * ViewModel para manejar CRUD de Beneficiarios contra la API.
  */
 class BeneficiariesViewModel(
     private val bankRepository: BankRepository = BankRepository.getInstance()
@@ -21,12 +21,14 @@ class BeneficiariesViewModel(
     val beneficiariesState: StateFlow<ResponseService<List<BeneficiaryResponse>>?> =
         _beneficiariesState.asStateFlow()
 
-    private val _createBeneficiaryState = MutableStateFlow<ResponseService<BeneficiaryResponse>?>(null)
+    private val _createBeneficiaryState =
+        MutableStateFlow<ResponseService<BeneficiaryResponse>?>(null)
     val createBeneficiaryState: StateFlow<ResponseService<BeneficiaryResponse>?> =
         _createBeneficiaryState.asStateFlow()
 
     private val _deleteBeneficiaryState = MutableStateFlow<ResponseService<Unit>?>(null)
-    val deleteBeneficiaryState: StateFlow<ResponseService<Unit>?> = _deleteBeneficiaryState.asStateFlow()
+    val deleteBeneficiaryState: StateFlow<ResponseService<Unit>?> =
+        _deleteBeneficiaryState.asStateFlow()
 
     fun listBeneficiaries() {
         viewModelScope.launch {
@@ -51,6 +53,10 @@ class BeneficiariesViewModel(
             )
             _createBeneficiaryState.value = bankRepository.createBeneficiary(request)
         }
+    }
+
+    fun clearCreateState() {
+        _createBeneficiaryState.value = null
     }
 
     fun deleteBeneficiary(id: String) {

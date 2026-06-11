@@ -217,6 +217,29 @@
             </LinearLayout>
 
 
+
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical" android:gravity="center">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFondearHome"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text=""
+                    app:icon="@android:drawable/ic_input_add"
+                    app:iconTint="@color/white"
+                    app:iconSize="22dp"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    app:cornerRadius="24dp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" android:text="Fondear"
+                    android:textSize="10sp" android:textColor="@color/gray_dark"
+                    android:fontFamily="@font/balgine_regular" />
+            </LinearLayout>
+
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
                 android:layout_weight="1" android:orientation="vertical" android:gravity="center">
                 <com.google.android.material.button.MaterialButton

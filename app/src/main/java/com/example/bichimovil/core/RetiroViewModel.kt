@@ -8,9 +8,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * ViewModel para manejar retiros simulados
- * NOTA: Los retiros son SIMULADOS, no consume API real
- * Solo genera un PIN ficticio y muestra confirmación
+ * ViewModel para retiros sin tarjeta.
+ * El saldo disponible se consulta SIEMPRE a la API (GET /account).
+ * La API educativa no tiene endpoint de retiro, así que la "clave de retiro"
+ * se genera localmente; el saldo se valida contra el saldo real de la API.
  */
 class RetiroViewModel(
     private val bankRepository: BankRepository = BankRepository.getInstance()
@@ -19,36 +20,32 @@ class RetiroViewModel(
     private val _currentAccount = MutableStateFlow<Long>(0)  // Saldo en centavos
     val currentAccount: StateFlow<Long> = _currentAccount.asStateFlow()
 
-    private val _retiroPin = MutableStateFlow<String>("")  // PIN simulado
+    private val _retiroPin = MutableStateFlow("")
     val retiroPin: StateFlow<String> = _retiroPin.asStateFlow()
 
-    private val _retiroConfirmed = MutableStateFlow<Boolean>(false)
+    private val _retiroAmountCents = MutableStateFlow<Long>(0)
+    val retiroAmountCents: StateFlow<Long> = _retiroAmountCents.asStateFlow()
+
+    private val _retiroConfirmed = MutableStateFlow(false)
     val retiroConfirmed: StateFlow<Boolean> = _retiroConfirmed.asStateFlow()
 
     fun loadCurrentBalance() {
         viewModelScope.launch {
             when (val result = bankRepository.getAccount()) {
-                is ResponseService.Success -> {
-                    _currentAccount.value = result.data.balance
-                }
-                is ResponseService.Error -> {
-                    // Handle error
-                }
-                is ResponseService.Loading -> {}
+                is ResponseService.Success -> _currentAccount.value = result.data.balance
+                else -> Unit
             }
         }
     }
 
     fun generateRetiroPin(amountCents: Long): String {
-        // Generar PIN simulado de 6 dígitos
+        _retiroAmountCents.value = amountCents
         val pin = (100000..999999).random().toString()
         _retiroPin.value = pin
         return pin
     }
 
-    fun confirmRetiro(amountCents: Long) {
-        // Simulación: solo marcamos como confirmado
-        // En un app real, aquí se haría una llamada a API de retiro
+    fun confirmRetiro() {
         _retiroConfirmed.value = true
     }
 

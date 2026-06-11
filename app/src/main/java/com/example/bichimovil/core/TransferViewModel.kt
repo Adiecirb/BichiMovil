@@ -11,10 +11,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * ViewModel para manejar el flujo completo de transferencias
- * Paso 1: Seleccionar beneficiario
- * Paso 2: Ingresar monto
- * Paso 3: Confirmar y transferir
+ * ViewModel del flujo de transferencias:
+ * 1) Seleccionar beneficiario  2) Monto  3) POST /transaction  4) Confirmación
  */
 class TransferViewModel(
     private val bankRepository: BankRepository = BankRepository.getInstance()
@@ -24,7 +22,8 @@ class TransferViewModel(
     val selectedBeneficiary: StateFlow<BeneficiaryResponse?> = _selectedBeneficiary.asStateFlow()
 
     private val _transferState = MutableStateFlow<ResponseService<TransactionResponse>?>(null)
-    val transferState: StateFlow<ResponseService<TransactionResponse>?> = _transferState.asStateFlow()
+    val transferState: StateFlow<ResponseService<TransactionResponse>?> =
+        _transferState.asStateFlow()
 
     private val _currentAccount = MutableStateFlow<Long>(0)  // Saldo en centavos
     val currentAccount: StateFlow<Long> = _currentAccount.asStateFlow()
@@ -36,33 +35,27 @@ class TransferViewModel(
     fun loadCurrentBalance() {
         viewModelScope.launch {
             when (val result = bankRepository.getAccount()) {
-                is ResponseService.Success -> {
-                    _currentAccount.value = result.data.balance
-                }
-                is ResponseService.Error -> {
-                    // Handle error
-                }
-                is ResponseService.Loading -> {}
+                is ResponseService.Success -> _currentAccount.value = result.data.balance
+                else -> Unit
             }
         }
     }
 
-    fun transferMoney(
-        toBeneficiaryId: String,
-        amountCents: Long,
-        description: String?
-    ) {
+    fun transferMoney(toBeneficiaryId: String, amountCents: Long, description: String?) {
         viewModelScope.launch {
             _transferState.value = ResponseService.Loading
-
             val request = TransactionRequest(
                 toBeneficiaryId = toBeneficiaryId,
                 amount = amountCents,
-                description = description
+                description = description?.takeIf { it.isNotBlank() }
             )
-
             _transferState.value = bankRepository.createTransaction(request)
         }
+    }
+
+    /** Evita re-navegar a la confirmación con un Success viejo. */
+    fun clearTransferState() {
+        _transferState.value = null
     }
 
     fun validateAmount(amountCents: Long): String? {

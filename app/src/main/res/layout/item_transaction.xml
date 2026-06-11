@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/tvArrow"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/circle_primary_bg"
+        android:gravity="center"
+        android:text="↑"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvConcepto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transferencia"
+            android:textColor="@color/gray_dark"
+            android:textSize="14sp"
+            android:fontFamily="@font/balgine_semibold" />
+
+        <TextView
+            android:id="@+id/tvFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01 ene 2026"
+            android:textColor="@color/gray_medium"
+            android:textSize="11sp"
+            android:fontFamily="@font/balgine_regular" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvMonto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-$0.00"
+        android:textSize="14sp"
+        android:fontFamily="@font/balgine_bold" />
+
+</LinearLayout>
